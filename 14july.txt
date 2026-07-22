@@ -1,0 +1,221 @@
+(base) sourav@labpc01:~$ 
+(base) sourav@labpc01:~$ 
+(base) sourav@labpc01:~$ mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| chitkara           |
+| g13                |
+| g15                |
+| g16                |
+| hpu                |
+| information_schema |
+| kuk                |
+| mysql              |
+| paruluni           |
+| performance_schema |
+| sanskrituni        |
+| sys                |
+| timt               |
++--------------------+
+13 rows in set (0.01 sec)
+
+mysql> create database g14;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| chitkara           |
+| g13                |
+| g14                |
+| g15                |
+| g16                |
+| hpu                |
+| information_schema |
+| kuk                |
+| mysql              |
+| paruluni           |
+| performance_schema |
+| sanskrituni        |
+| sys                |
+| timt               |
++--------------------+
+14 rows in set (0.01 sec)
+
+mysql> use g14;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table Student (name varchar(25) , age tinyint unsigned , email varchar(50) , description text);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into Student values ("Ram" , 255, "s@gmail.com", "jdfhvhjdsfvhj");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Student;
++------+------+-------------+---------------+
+| name | age  | email       | description   |
++------+------+-------------+---------------+
+| Ram  |  255 | s@gmail.com | jdfhvhjdsfvhj |
++------+------+-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into Student values ("Ram" , 256, "s@gmail.com", "jdfhvhjdsfvhj");
+ERROR 1264 (22003): Out of range value for column 'age' at row 1
+mysql> insert into Student values ("Ram" , 15, "s@gmail.com", "jdfhvhjdsfvhj");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Student;
++------+------+-------------+---------------+
+| name | age  | email       | description   |
++------+------+-------------+---------------+
+| Ram  |  255 | s@gmail.com | jdfhvhjdsfvhj |
+| Ram  |   15 | s@gmail.com | jdfhvhjdsfvhj |
++------+------+-------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into Student values ("Ramvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" , 15, "s@gmail.com", "jdfhvhjdsfvhj");
+ERROR 1406 (22001): Data too long for column 'name' at row 1
+mysql> create table temptime2 (tempdate date, temptime time, tempdatetime datetime , temptimestamp timestamp DEFAULT CURRENT_TIMESTAMP
+    -> , tempyear year);
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR 1136 (21S01): Column count doesn't match value count at row 1mpyear) values ("2000-11-07", "15:15:15", "2000-11-07 15:15:15" "1997");
+mysql> insert into temptime2 (tempdate , temptime, tempdatetime, tempyear) values ("2000-11-07", "15:15:15", "2000-11-07 15:15:15" "1997");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into temptime2 (tempdate , temptime, tempdatetime, temptimestamp, tempyear) values ("2000-11-07", "15:15:15", "2000-11-07 15:15:15" "199
+7");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> create table time1 ( tempdate date , temptime time , temptimestamp timstamp DEFAULT CURRENT_TIMESTAMP);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'timstamp DEFAULT CURRENT_TIMESTAMP)' at line 1
+mysql> create table time1 ( tempdate date , temptime time , temptimestamp timestamp DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into time1 (tempdate , temptime) values ("2000-11-07", "15:15:15");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from time1;
++------------+----------+---------------------+
+| tempdate   | temptime | temptimestamp       |
++------------+----------+---------------------+
+| 2000-11-07 | 15:15:15 | 2026-07-14 17:02:16 |
++------------+----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into time1 (tempdate , temptime) values ("2000-11-07", "837:15:15");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from time1;
++------------+-----------+---------------------+
+| tempdate   | temptime  | temptimestamp       |
++------------+-----------+---------------------+
+| 2000-11-07 | 15:15:15  | 2026-07-14 17:02:16 |
+| 2000-11-07 | 837:15:15 | 2026-07-14 17:03:33 |
++------------+-----------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT @@session.time_zone;
++---------------------+
+| @@session.time_zone |
++---------------------+
+| SYSTEM              |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SET time_zone = '+00:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into time1 (tempdate , temptime) values ("1997-10-07", "37:15:15");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from time1;
++------------+-----------+---------------------+
+| tempdate   | temptime  | temptimestamp       |
++------------+-----------+---------------------+
+| 2000-11-07 | 15:15:15  | 2026-07-14 11:32:16 |
+| 2000-11-07 | 837:15:15 | 2026-07-14 11:33:33 |
+| 1997-10-07 | 37:15:15  | 2026-07-14 11:37:35 |
++------------+-----------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> SET time_zone = '+01:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from time1;
++------------+-----------+---------------------+
+| tempdate   | temptime  | temptimestamp       |
++------------+-----------+---------------------+
+| 2000-11-07 | 15:15:15  | 2026-07-14 12:32:16 |
+| 2000-11-07 | 837:15:15 | 2026-07-14 12:33:33 |
+| 1997-10-07 | 37:15:15  | 2026-07-14 12:37:35 |
++------------+-----------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into time1 (tempdate , temptime) values ("1997-10-07", "37:15:59");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from time1;
++------------+-----------+---------------------+
+| tempdate   | temptime  | temptimestamp       |
++------------+-----------+---------------------+
+| 2000-11-07 | 15:15:15  | 2026-07-14 12:32:16 |
+| 2000-11-07 | 837:15:15 | 2026-07-14 12:33:33 |
+| 1997-10-07 | 37:15:15  | 2026-07-14 12:37:35 |
+| 1997-10-07 | 37:15:59  | 2026-07-14 12:39:48 |
++------------+-----------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table bool (isactive boolean);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into bool values (true);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from bool ;
++----------+
+| isactive |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> show create table bool;
++-------+-------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                  |
++-------+-------------------------------------------------------------------------------------------------------------------------------+
+| bool  | CREATE TABLE `bool` (
+  `isactive` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g14 |
++---------------+
+| Student       |
+| bool          |
+| temptime2     |
+| time1         |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into temptime2 (tempdate , temptime, tempdatetime, temptimestamp, tempyear) values ("2000-11-07", "15:15:15", "2000-11-07 15:15:15" "1997");
+

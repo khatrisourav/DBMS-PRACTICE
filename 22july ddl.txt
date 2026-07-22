@@ -1,0 +1,344 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use g12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table constr (id int primary key , name varchar(50) not null , email varchar (50) unique, salary decimal(10,2) default 30000.00);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table constr
+    -> ;
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                         |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| constr | CREATE TABLE `constr` (
+  `id` int NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `salary` decimal(10,2) DEFAULT '30000.00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> describe constr;
++--------+---------------+------+-----+----------+-------+
+| Field  | Type          | Null | Key | Default  | Extra |
++--------+---------------+------+-----+----------+-------+
+| id     | int           | NO   | PRI | NULL     |       |
+| name   | varchar(50)   | NO   |     | NULL     |       |
+| email  | varchar(50)   | YES  | UNI | NULL     |       |
+| salary | decimal(10,2) | YES  |     | 30000.00 |       |
++--------+---------------+------+-----+----------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into constr values (1, "sourav", "s@gmail.com", 10000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from constr;
++----+--------+-------------+----------+
+| id | name   | email       | salary   |
++----+--------+-------------+----------+
+|  1 | sourav | s@gmail.com | 10000.00 |
++----+--------+-------------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into constr values (1, "sourav", "s@gmail.com", 10000);
+ERROR 1062 (23000): Duplicate entry '1' for key 'constr.PRIMARY'
+mysql> insert into constr values (2, "sourav", "s@gmail.com", 10000);
+ERROR 1062 (23000): Duplicate entry 's@gmail.com' for key 'constr.email'
+mysql> insert into constr (id , name , email)values (3, "ram", "s1@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from constr;
++----+--------+--------------+----------+
+| id | name   | email        | salary   |
++----+--------+--------------+----------+
+|  1 | sourav | s@gmail.com  | 10000.00 |
+|  3 | ram    | s1@gmail.com | 30000.00 |
++----+--------+--------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table constr add fees int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc constr;
++--------+---------------+------+-----+----------+-------+
+| Field  | Type          | Null | Key | Default  | Extra |
++--------+---------------+------+-----+----------+-------+
+| id     | int           | NO   | PRI | NULL     |       |
+| name   | varchar(50)   | NO   |     | NULL     |       |
+| email  | varchar(50)   | YES  | UNI | NULL     |       |
+| salary | decimal(10,2) | YES  |     | 30000.00 |       |
+| fees   | int           | YES  |     | NULL     |       |
++--------+---------------+------+-----+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table constr modify name varchar(100);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc constr;
++--------+---------------+------+-----+----------+-------+
+| Field  | Type          | Null | Key | Default  | Extra |
++--------+---------------+------+-----+----------+-------+
+| id     | int           | NO   | PRI | NULL     |       |
+| name   | varchar(100)  | YES  |     | NULL     |       |
+| email  | varchar(50)   | YES  | UNI | NULL     |       |
+| salary | decimal(10,2) | YES  |     | 30000.00 |       |
+| fees   | int           | YES  |     | NULL     |       |
++--------+---------------+------+-----+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table constr drop column salary;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc constr;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| name  | varchar(100) | YES  |     | NULL    |       |
+| email | varchar(50)  | YES  | UNI | NULL    |       |
+| fees  | int          | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> rename table constr to samyak;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| copyemp          |
+| employees        |
+| newone           |
+| newonecopy       |
+| samyak           |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+9 rows in set (0.00 sec)
+
+mysql> desc samyak;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| name  | varchar(100) | YES  |     | NULL    |       |
+| email | varchar(50)  | YES  | UNI | NULL    |       |
+| fees  | int          | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table samyak rename column fees to semesterfees;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc samyak;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(100) | YES  |     | NULL    |       |
+| email        | varchar(50)  | YES  | UNI | NULL    |       |
+| semesterfees | int          | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from samyak;
++----+--------+--------------+--------------+
+| id | name   | email        | semesterfees |
++----+--------+--------------+--------------+
+|  1 | sourav | s@gmail.com  |         NULL |
+|  3 | ram    | s1@gmail.com |         NULL |
++----+--------+--------------+--------------+
+2 rows in set (0.01 sec)
+
+mysql> truncate samyak;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| copyemp          |
+| employees        |
+| newone           |
+| newonecopy       |
+| samyak           |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from samyak;
+Empty set (0.00 sec)
+
+mysql> select * from employees;
++--------+------------+-----------+--------------+------------+----------+
+| emp_id | first_name | last_name | email        | hire_date  | salary   |
++--------+------------+-----------+--------------+------------+----------+
+|      1 | sourav     | batra     | s@gmail.com  | 2025-11-07 | 30000.00 |
+|     12 | sourav     | batra     | s@1gmail.com | 2025-11-07 | 30000.00 |
++--------+------------+-----------+--------------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> drop table employees;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| copyemp          |
+| newone           |
+| newonecopy       |
+| samyak           |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+8 rows in set (0.00 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| chitkara            |
+| g12                 |
+| g13                 |
+| g14                 |
+| g14new              |
+| g15                 |
+| g16                 |
+| hpu                 |
+| information_schema  |
+| kuk                 |
+| laptop              |
+| mysql               |
+| paruluni            |
+| performance_schema  |
+| sanskrituni         |
+| sys                 |
+| temporal_conversion |
+| timt                |
+| ty                  |
++---------------------+
+19 rows in set (0.00 sec)
+
+mysql> drop kuk;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kuk' at line 1
+mysql> drop  database kuk;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| chitkara            |
+| g12                 |
+| g13                 |
+| g14                 |
+| g14new              |
+| g15                 |
+| g16                 |
+| hpu                 |
+| information_schema  |
+| laptop              |
+| mysql               |
+| paruluni            |
+| performance_schema  |
+| sanskrituni         |
+| sys                 |
+| temporal_conversion |
+| timt                |
+| ty                  |
++---------------------+
+18 rows in set (0.00 sec)
+
+mysql> use g12;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| copyemp          |
+| newone           |
+| newonecopy       |
+| samyak           |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+8 rows in set (0.01 sec)
+
+mysql> select * from samyak;
+Empty set (0.01 sec)
+
+mysql> select * from t1;
++------------------------+
+| temdatetime            |
++------------------------+
+| 2000-11-04 15:15:15.12 |
+| 2000-11-04 15:12:00.00 |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> create table copytempdatetime as select * from t1;
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| copyemp          |
+| copytempdatetime |
+| newone           |
+| newonecopy       |
+| samyak           |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from tempdatetime;
+ERROR 1146 (42S02): Table 'g12.tempdatetime' doesn't exist
+mysql> select * from copytempdatetime;
++------------------------+
+| temdatetime            |
++------------------------+
+| 2000-11-04 15:15:15.12 |
+| 2000-11-04 15:12:00.00 |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
