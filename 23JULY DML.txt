@@ -1,0 +1,508 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use g12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table ne1 (id int , age int , name varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc ne1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into ne1 (id) values (1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from ne1;
++------+------+------+
+| id   | age  | name |
++------+------+------+
+|    1 | NULL | NULL |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into ne1 (id,age) values (1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into ne1 (id,age) values (1,25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from ne1;
++------+------+------+
+| id   | age  | name |
++------+------+------+
+|    1 | NULL | NULL |
+|    1 |   25 | NULL |
++------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into ne1 values (1,25);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into ne1 values (1,25,"sourav");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from ne1;
++------+------+--------+
+| id   | age  | name   |
++------+------+--------+
+|    1 | NULL | NULL   |
+|    1 |   25 | NULL   |
+|    1 |   25 | sourav |
++------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into ne1 values (1,2,"a"),(2,45,"b"), (3, 78, "c");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from ne1;
++------+------+--------+
+| id   | age  | name   |
++------+------+--------+
+|    1 | NULL | NULL   |
+|    1 |   25 | NULL   |
+|    1 |   25 | sourav |
+|    1 |    2 | a      |
+|    2 |   45 | b      |
+|    3 |   78 | c      |
++------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into ne1 (id,age)values (1,45),(5,78),(6,45);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from ne1;
++------+------+--------+
+| id   | age  | name   |
++------+------+--------+
+|    1 | NULL | NULL   |
+|    1 |   25 | NULL   |
+|    1 |   25 | sourav |
+|    1 |    2 | a      |
+|    2 |   45 | b      |
+|    3 |   78 | c      |
+|    1 |   45 | NULL   |
+|    5 |   78 | NULL   |
+|    6 |   45 | NULL   |
++------+------+--------+
+9 rows in set (0.00 sec)
+
+mysql> create table cne1 (t int , t1 int , t2 name varchar(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name varchar(50))' at line 1
+mysql> create table cne1 (t int , t1 int , t2_name varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into cne1 select * from ne1
+    -> ;
+Query OK, 9 rows affected (0.01 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from ne1;
++------+------+--------+
+| id   | age  | name   |
++------+------+--------+
+|    1 | NULL | NULL   |
+|    1 |   25 | NULL   |
+|    1 |   25 | sourav |
+|    1 |    2 | a      |
+|    2 |   45 | b      |
+|    3 |   78 | c      |
+|    1 |   45 | NULL   |
+|    5 |   78 | NULL   |
+|    6 |   45 | NULL   |
++------+------+--------+
+9 rows in set (0.01 sec)
+
+mysql> select * from cne1;
++------+------+---------+
+| t    | t1   | t2_name |
++------+------+---------+
+|    1 | NULL | NULL    |
+|    1 |   25 | NULL    |
+|    1 |   25 | sourav  |
+|    1 |    2 | a       |
+|    2 |   45 | b       |
+|    3 |   78 | c       |
+|    1 |   45 | NULL    |
+|    5 |   78 | NULL    |
+|    6 |   45 | NULL    |
++------+------+---------+
+9 rows in set (0.00 sec)
+
+mysql> insert into cne1 (t) select id from ne1;
+Query OK, 9 rows affected (0.01 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from cne1;
++------+------+---------+
+| t    | t1   | t2_name |
++------+------+---------+
+|    1 | NULL | NULL    |
+|    1 |   25 | NULL    |
+|    1 |   25 | sourav  |
+|    1 |    2 | a       |
+|    2 |   45 | b       |
+|    3 |   78 | c       |
+|    1 |   45 | NULL    |
+|    5 |   78 | NULL    |
+|    6 |   45 | NULL    |
+|    1 | NULL | NULL    |
+|    1 | NULL | NULL    |
+|    1 | NULL | NULL    |
+|    1 | NULL | NULL    |
+|    2 | NULL | NULL    |
+|    3 | NULL | NULL    |
+|    1 | NULL | NULL    |
+|    5 | NULL | NULL    |
+|    6 | NULL | NULL    |
++------+------+---------+
+18 rows in set (0.00 sec)
+
+mysql> create table ne12 (t int , t1 int , t2 int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into ne12 set t=45, t1=78;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from ne12;
++------+------+------+
+| t    | t1   | t2   |
++------+------+------+
+|   45 |   78 | NULL |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from cne1 where t1 >45;
++------+------+---------+
+| t    | t1   | t2_name |
++------+------+---------+
+|    3 |   78 | c       |
+|    5 |   78 | NULL    |
++------+------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select * from cne1 where t1 =45;
++------+------+---------+
+| t    | t1   | t2_name |
++------+------+---------+
+|    2 |   45 | b       |
+|    1 |   45 | NULL    |
+|    6 |   45 | NULL    |
++------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select t from cne1;
++------+
+| t    |
++------+
+|    1 |
+|    1 |
+|    1 |
+|    1 |
+|    2 |
+|    3 |
+|    1 |
+|    5 |
+|    6 |
+|    1 |
+|    1 |
+|    1 |
+|    1 |
+|    2 |
+|    3 |
+|    1 |
+|    5 |
+|    6 |
++------+
+18 rows in set (0.00 sec)
+
+mysql> select t t1 from cne1;
++------+
+| t1   |
++------+
+|    1 |
+|    1 |
+|    1 |
+|    1 |
+|    2 |
+|    3 |
+|    1 |
+|    5 |
+|    6 |
+|    1 |
+|    1 |
+|    1 |
+|    1 |
+|    2 |
+|    3 |
+|    1 |
+|    5 |
+|    6 |
++------+
+18 rows in set (0.00 sec)
+
+mysql> select t ,t1 from cne1;
++------+------+
+| t    | t1   |
++------+------+
+|    1 | NULL |
+|    1 |   25 |
+|    1 |   25 |
+|    1 |    2 |
+|    2 |   45 |
+|    3 |   78 |
+|    1 |   45 |
+|    5 |   78 |
+|    6 |   45 |
+|    1 | NULL |
+|    1 | NULL |
+|    1 | NULL |
+|    1 | NULL |
+|    2 | NULL |
+|    3 | NULL |
+|    1 | NULL |
+|    5 | NULL |
+|    6 | NULL |
++------+------+
+18 rows in set (0.00 sec)
+
+mysql> create table stud12x (name  varchar(50) , age int , id int );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into stud12x values ("sourav", 22,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from stud12x;
++--------+------+------+
+| name   | age  | id   |
++--------+------+------+
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
++--------+------+------+
+9 rows in set (0.00 sec)
+
+mysql> insert into stud12x values ("ram", 21,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud12x values ("ramya", 23,26);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from stud12x;
++--------+------+------+
+| name   | age  | id   |
++--------+------+------+
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| sourav |   22 |    1 |
+| ram    |   21 |    2 |
+| ramya  |   23 |   26 |
++--------+------+------+
+11 rows in set (0.00 sec)
+
+mysql> update stud12x set name ="rehanshi";
+Query OK, 11 rows affected (0.01 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> select * from stud12x;
++----------+------+------+
+| name     | age  | id   |
++----------+------+------+
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   21 |    2 |
+| rehanshi |   23 |   26 |
++----------+------+------+
+11 rows in set (0.00 sec)
+
+mysql> update stud12x set name = "sourav" where id =26;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud12x;
++----------+------+------+
+| name     | age  | id   |
++----------+------+------+
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   21 |    2 |
+| sourav   |   23 |   26 |
++----------+------+------+
+11 rows in set (0.00 sec)
+
+mysql> update stud12x set name = "sourav", age = 78  where id =26;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud12x;
++----------+------+------+
+| name     | age  | id   |
++----------+------+------+
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   21 |    2 |
+| sourav   |   78 |   26 |
++----------+------+------+
+11 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| cne1             |
+| copyemp          |
+| copytempdatetime |
+| ne               |
+| ne1              |
+| ne12             |
+| newone           |
+| newonecopy       |
+| newonew          |
+| samyak           |
+| stud12x          |
+| studentofg12     |
+| t1               |
+| t2               |
+| twentysecondjuly |
++------------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from ne12;
++------+------+------+
+| t    | t1   | t2   |
++------+------+------+
+|   45 |   78 | NULL |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from ne1;
++------+------+--------+
+| id   | age  | name   |
++------+------+--------+
+|    1 | NULL | NULL   |
+|    1 |   25 | NULL   |
+|    1 |   25 | sourav |
+|    1 |    2 | a      |
+|    2 |   45 | b      |
+|    3 |   78 | c      |
+|    1 |   45 | NULL   |
+|    5 |   78 | NULL   |
+|    6 |   45 | NULL   |
++------+------+--------+
+9 rows in set (0.00 sec)
+
+mysql> delete from ne1;
+Query OK, 9 rows affected (0.01 sec)
+
+mysql> select * from ne1;
+Empty set (0.00 sec)
+
+mysql> select * from stud12x;
++----------+------+------+
+| name     | age  | id   |
++----------+------+------+
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   22 |    1 |
+| rehanshi |   21 |    2 |
+| sourav   |   78 |   26 |
++----------+------+------+
+11 rows in set (0.00 sec)
+
+mysql> delete from stud12x where id =1;
+Query OK, 9 rows affected (0.00 sec)
+
+mysql> select * from stud12x;
++----------+------+------+
+| name     | age  | id   |
++----------+------+------+
+| rehanshi |   21 |    2 |
+| sourav   |   78 |   26 |
++----------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
