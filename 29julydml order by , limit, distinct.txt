@@ -1,0 +1,291 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use g12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table xyz1x (name char(50), age int , fees int , city varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into xyz1x values ("Sourav", 15, 10, "kkr"), ("Ram", 15 , 10,"chd"), ("Ram", 25, 20, "Rj"),("xyz", 25,78,"kkr");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from xyz1x;
++--------+------+------+------+
+| name   | age  | fees | city |
++--------+------+------+------+
+| Sourav |   15 |   10 | kkr  |
+| Ram    |   15 |   10 | chd  |
+| Ram    |   25 |   20 | Rj   |
+| xyz    |   25 |   78 | kkr  |
++--------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select city from xyz1x;
++------+
+| city |
++------+
+| kkr  |
+| chd  |
+| Rj   |
+| kkr  |
++------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct  city from xyz1x;
++------+
+| city |
++------+
+| kkr  |
+| chd  |
+| Rj   |
++------+
+3 rows in set (0.01 sec)
+
+mysql> select age fees from xyz1x;
++------+
+| fees |
++------+
+|   15 |
+|   15 |
+|   25 |
+|   25 |
++------+
+4 rows in set (0.00 sec)
+
+mysql> select age, fees from xyz1x;
++------+------+
+| age  | fees |
++------+------+
+|   15 |   10 |
+|   15 |   10 |
+|   25 |   20 |
+|   25 |   78 |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct  age, fees from xyz1x;
++------+------+
+| age  | fees |
++------+------+
+|   15 |   10 |
+|   25 |   20 |
+|   25 |   78 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from xyz1x;
++--------+------+------+------+
+| name   | age  | fees | city |
++--------+------+------+------+
+| Sourav |   15 |   10 | kkr  |
+| Ram    |   15 |   10 | chd  |
+| Ram    |   25 |   20 | Rj   |
+| xyz    |   25 |   78 | kkr  |
++--------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select fees from xyz1x order by fees desc;
++------+
+| fees |
++------+
+|   78 |
+|   20 |
+|   10 |
+|   10 |
++------+
+4 rows in set (0.00 sec)
+
+mysql> select * from xyz1x order by fees desc;
++--------+------+------+------+
+| name   | age  | fees | city |
++--------+------+------+------+
+| xyz    |   25 |   78 | kkr  |
+| Ram    |   25 |   20 | Rj   |
+| Sourav |   15 |   10 | kkr  |
+| Ram    |   15 |   10 | chd  |
++--------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table xz (name varchar(50) , age int , marks int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into xz values ("a", 1,45),("a",2,78),("b",2,15),("c",4,38);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from xz;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
++------+------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from xz order by marks asc;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| a    |    1 |    45 |
+| a    |    2 |    78 |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from xz order by marks ;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| a    |    1 |    45 |
+| a    |    2 |    78 |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from xz order by name ;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from xz order by name asc , marks desc ;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    2 |    78 |
+| a    |    1 |    45 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
++------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into xz values ("b",12, 35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from xz;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| b    |   12 |    35 |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xz order by name asc , marks desc ;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    2 |    78 |
+| a    |    1 |    45 |
+| b    |   12 |    35 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xz;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| b    |   12 |    35 |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xz limit 2
+    -> ;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xz;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| b    |   12 |    35 |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xz limit 0,2;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
++------+------+-------+
+2 rows in set (0.01 sec)
+
+mysql> select * from xz;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    1 |    45 |
+| a    |    2 |    78 |
+| b    |    2 |    15 |
+| c    |    4 |    38 |
+| b    |   12 |    35 |
++------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xz limit 1,2;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| a    |    2 |    78 |
+| b    |    2 |    15 |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xz limit 10 offset 10;
+Empty set (0.00 sec)
+
+mysql> select * from xz limit 2 offset 2;
++------+------+-------+
+| name | age  | marks |
++------+------+-------+
+| b    |    2 |    15 |
+| c    |    4 |    38 |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
