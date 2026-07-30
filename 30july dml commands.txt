@@ -1,0 +1,484 @@
+1:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use g12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from marks ;
++-------+------+
+| marks | name |
++-------+------+
+|    45 | a    |
+|    78 | a    |
+|    15 | b    |
+|    25 | b    |
+|    69 | c    |
++-------+------+
+5 rows in set (0.01 sec)
+
+mysql> select * from marks order by marks asc , name desc;
++-------+------+
+| marks | name |
++-------+------+
+|    15 | b    |
+|    25 | b    |
+|    45 | a    |
+|    69 | c    |
+|    78 | a    |
++-------+------+
+5 rows in set (0.00 sec)
+
+mysql> USE g14;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> 
+mysql> show tables;
++---------------+
+| Tables_in_g14 |
++---------------+
+| STUD123X      |
+| Student       |
+| binr          |
+| bool          |
+| gg            |
+| student12x    |
+| studx1x       |
+| t123456       |
+| t1234567      |
+| temptime2     |
+| time1         |
+| xyz           |
+| xyz123        |
+| xyz1234       |
++---------------+
+14 rows in set (0.01 sec)
+
+mysql> select * from student12x;
++--------+------+--------+----------+
+| name   | age  | rollno | password |
++--------+------+--------+----------+
+| sourav |   22 | 2      |   123456 |
++--------+------+--------+----------+
+1 row in set (0.01 sec)
+
+mysql> select * from studx1x;
++------------+--------+-------------+-------+
+| first_name | rollno | email       | fees  |
++------------+--------+-------------+-------+
+| Sourav     |      1 | s@gmail.com | 30000 |
++------------+--------+-------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from xyz
+    -> ;
++---------+
+| phone   |
++---------+
+| 1234656 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select * from Student;
++------+------+-------------+---------------+
+| name | age  | email       | description   |
++------+------+-------------+---------------+
+| Ram  |  255 | s@gmail.com | jdfhvhjdsfvhj |
+| Ram  |   15 | s@gmail.com | jdfhvhjdsfvhj |
++------+------+-------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select name from Student;
++------+
+| name |
++------+
+| Ram  |
+| Ram  |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select name ,email from Student;
++------+-------------+
+| name | email       |
++------+-------------+
+| Ram  | s@gmail.com |
+| Ram  | s@gmail.com |
++------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> create table studx1x (name varchar(50), age int , email varchar(50));
+ERROR 1050 (42S01): Table 'studx1x' already exists
+mysql> create table studx1 (name varchar(50), age int , email varchar(50));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into studx1 values ("Sourav",23, "s@gmail.com");
+Query OK, 1 row affected (0.02 sec)
+mysql> 
+mysql> insert into studx1 values ("vanshika", 20, "v@gmail.com" ),("shivam", 20,"sh@gmail.com" ),("Manpreet", 19, "mn@gmmysql> " ), ( "Samridh" , 25, "Sm@gmail.com" )
+mysql> nsert into studx1 values ("vanshika", 20, "v@gmail.com" ),("shivam", 20,"sh@gmail.com" ),("Manpreet", 19, "mn@gmmysql> " ), ( "Samridh" , 25, "Sm@gmail.com" );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nsert into studx1 values ("vanshika", 20, "v@gmail.com" ),("shivam", 20,"sh@gmai' at line 1
+mysql> insert into studx1 values ("vanshika", 20, "v@gmail.com" ),("shivam", 20,"sh@gmail.com" ),("Manpreet", 19, "mn@gmmy
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+5 rows in set (0.01 sec)
+
+mysql> create table copystudx1 (t varchar(50), t1 int , t2 varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc studx1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| email | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc copystudx1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| t     | varchar(50) | YES  |     | NULL    |       |
+| t1    | int         | YES  |     | NULL    |       |
+| t2    | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into copystudx1 select * from studx1;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from copystudx1;
++----------+------+--------------+
+| t        | t1   | t2           |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into copystudx1 select name from studx1;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into copystudx1 (t)  select name from studx1;
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from copystudx1;
++----------+------+--------------+
+| t        | t1   | t2           |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
+| Sourav   | NULL | NULL         |
+| vanshika | NULL | NULL         |
+| shivam   | NULL | NULL         |
+| Manpreet | NULL | NULL         |
+| Samridh  | NULL | NULL         |
++----------+------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studx1 where age =23;
++--------+------+-------------+
+| name   | age  | email       |
++--------+------+-------------+
+| Sourav |   23 | s@gmail.com |
++--------+------+-------------+
+1 row in set (0.01 sec)
+
+mysql> insert into studx1 values ("vanshika", 20, "v@gmail.com" ),("shivam", 20,"sh@gmail.com" ),("Manpreet", 19, "mn@gmmy
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from studx1 where age =20;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
++----------+------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from studx1 where age >20;
++---------+------+--------------+
+| name    | age  | email        |
++---------+------+--------------+
+| Sourav  |   23 | s@gmail.com  |
+| Samridh |   25 | Sm@gmail.com |
+| Samridh |   25 | Sm@gmail.com |
++---------+------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studx1 where email ="v@gmail.com";
++----------+------+-------------+
+| name     | age  | email       |
++----------+------+-------------+
+| vanshika |   20 | v@gmail.com |
+| vanshika |   20 | v@gmail.com |
++----------+------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
++----------+------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update studx1 set age =21;
+Query OK, 9 rows affected (0.01 sec)
+Rows matched: 9  Changed: 9  Warnings: 0
+
+mysql> select * from studx1;
++----------+------+--------------+
+| name     | age  | email        |
++----------+------+--------------+
+| Sourav   |   21 | s@gmail.com  |
+| vanshika |   21 | v@gmail.com  |
+| shivam   |   21 | sh@gmail.com |
+| Manpreet |   21 | mn@gmmysql>  |
+| Samridh  |   21 | Sm@gmail.com |
+| vanshika |   21 | v@gmail.com  |
+| shivam   |   21 | sh@gmail.com |
+| Manpreet |   21 | mn@gmmysql>  |
+| Samridh  |   21 | Sm@gmail.com |
++----------+------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> update studx1 set age=25, email="xyz@gmail.com" where name="shivam";
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from studx1;
++----------+------+---------------+
+| name     | age  | email         |
++----------+------+---------------+
+| Sourav   |   21 | s@gmail.com   |
+| vanshika |   21 | v@gmail.com   |
+| shivam   |   25 | xyz@gmail.com |
+| Manpreet |   21 | mn@gmmysql>   |
+| Samridh  |   21 | Sm@gmail.com  |
+| vanshika |   21 | v@gmail.com   |
+| shivam   |   25 | xyz@gmail.com |
+| Manpreet |   21 | mn@gmmysql>   |
+| Samridh  |   21 | Sm@gmail.com  |
++----------+------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from copystudx1;
++----------+------+--------------+
+| t        | t1   | t2           |
++----------+------+--------------+
+| Sourav   |   23 | s@gmail.com  |
+| vanshika |   20 | v@gmail.com  |
+| shivam   |   20 | sh@gmail.com |
+| Manpreet |   19 | mn@gmmysql>  |
+| Samridh  |   25 | Sm@gmail.com |
+| Sourav   | NULL | NULL         |
+| vanshika | NULL | NULL         |
+| shivam   | NULL | NULL         |
+| Manpreet | NULL | NULL         |
+| Samridh  | NULL | NULL         |
++----------+------+--------------+
+10 rows in set (0.01 sec)
+
+mysql> delete from copystudx1;
+Query OK, 10 rows affected (0.00 sec)
+
+mysql> select * from copystudx1;
+Empty set (0.00 sec)
+
+mysql> select * from studx1;
++----------+------+---------------+
+| name     | age  | email         |
++----------+------+---------------+
+| Sourav   |   21 | s@gmail.com   |
+| vanshika |   21 | v@gmail.com   |
+| shivam   |   25 | xyz@gmail.com |
+| Manpreet |   21 | mn@gmmysql>   |
+| Samridh  |   21 | Sm@gmail.com  |
+| vanshika |   21 | v@gmail.com   |
+| shivam   |   25 | xyz@gmail.com |
+| Manpreet |   21 | mn@gmmysql>   |
+| Samridh  |   21 | Sm@gmail.com  |
++----------+------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from studx1 where age = 21;
+Query OK, 7 rows affected (0.01 sec)
+
+mysql> select * from studx1;
++--------+------+---------------+
+| name   | age  | email         |
++--------+------+---------------+
+| shivam |   25 | xyz@gmail.com |
+| shivam |   25 | xyz@gmail.com |
++--------+------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into studx1 values ("simran", 78);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into studx1 (name, age )  values ("simran", 78);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from studx1;
++--------+------+---------------+
+| name   | age  | email         |
++--------+------+---------------+
+| shivam |   25 | xyz@gmail.com |
+| shivam |   25 | xyz@gmail.com |
+| simran |   78 | NULL          |
++--------+------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into studx1 set name="shivika";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studx1;
++---------+------+---------------+
+| name    | age  | email         |
++---------+------+---------------+
+| shivam  |   25 | xyz@gmail.com |
+| shivam  |   25 | xyz@gmail.com |
+| simran  |   78 | NULL          |
+| shivika | NULL | NULL          |
++---------+------+---------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into studx1 set name="shivika",age =25;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from studx1;
++---------+------+---------------+
+| name    | age  | email         |
++---------+------+---------------+
+| shivam  |   25 | xyz@gmail.com |
+| shivam  |   25 | xyz@gmail.com |
+| simran  |   78 | NULL          |
+| shivika | NULL | NULL          |
+| shivika |   25 | NULL          |
++---------+------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table studx1 modify age int default 30;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc studx1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | 30      |       |
+| email | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> update studx1 set age = default where name = "simran";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> desc studx1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | 30      |       |
+| email | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studx1;
++---------+------+---------------+
+| name    | age  | email         |
++---------+------+---------------+
+| shivam  |   25 | xyz@gmail.com |
+| shivam  |   25 | xyz@gmail.com |
+| simran  |   30 | NULL          |
+| shivika | NULL | NULL          |
+| shivika |   25 | NULL          |
++---------+------+---------------+
+
