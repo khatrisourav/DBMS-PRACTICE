@@ -1,0 +1,753 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> 
+mysql> use g15;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table xzx1 (id int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into xzx1 values();
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from xzx1;
++------+
+| id   |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> create table xzx12( roll_no int primary key , age int default 18 , email varchar(30) unique, name varchar(50) not null);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> describe xzx12;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| age     | int         | YES  |     | 18      |       |
+| email   | varchar(30) | YES  | UNI | NULL    |       |
+| name    | varchar(50) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into xzx12 (1,14,"s@gmail.com","Ram");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,14,"s@gmail.com","Ram")' at line 1
+mysql> insert into xzx12 values (1,14,"s@gmail.com","Ram");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into xzx12 values (1,14,"s@gmail.com","Ram");
+ERROR 1062 (23000): Duplicate entry '1' for key 'xzx12.PRIMARY'
+mysql> insert into xzx12 values (2,14,"s@gmail.com","Ram");
+ERROR 1062 (23000): Duplicate entry 's@gmail.com' for key 'xzx12.email'
+mysql> insert into xzx12 values (2,14,"s12@gmail.com","Ram");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from xzx1;
++------+
+| id   |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
+mysql> select * from xzx12;
++---------+------+---------------+------+
+| roll_no | age  | email         | name |
++---------+------+---------------+------+
+|       1 |   14 | s@gmail.com   | Ram  |
+|       2 |   14 | s12@gmail.com | Ram  |
++---------+------+---------------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into xzx12 values(12, "xzy@gmail.com", "Sourav");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into xzx12  (roll_no,email,name)  values(12, "xzy@gmail.com", "Sourav");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from xzx12;
++---------+------+---------------+--------+
+| roll_no | age  | email         | name   |
++---------+------+---------------+--------+
+|       1 |   14 | s@gmail.com   | Ram    |
+|       2 |   14 | s12@gmail.com | Ram    |
+|      12 |   18 | xzy@gmail.com | Sourav |
++---------+------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into xzx12  (roll_no,email,age)  values(123, "xzy1@gmail.com", 78);
+ERROR 1364 (HY000): Field 'name' doesn't have a default value
+mysql> desc xzx12;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| age     | int         | YES  |     | 18      |       |
+| email   | varchar(30) | YES  | UNI | NULL    |       |
+| name    | varchar(50) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table xzx12 add phonenumber char(13) unique;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc xzx12;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| roll_no     | int         | NO   | PRI | NULL    |       |
+| age         | int         | YES  |     | 18      |       |
+| email       | varchar(30) | YES  | UNI | NULL    |       |
+| name        | varchar(50) | NO   |     | NULL    |       |
+| phonenumber | char(13)    | YES  | UNI | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table xzx12 modify email char(13);
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc xzx12;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| roll_no     | int         | NO   | PRI | NULL    |       |
+| age         | int         | YES  |     | 18      |       |
+| email       | char(13)    | YES  | UNI | NULL    |       |
+| name        | varchar(50) | NO   |     | NULL    |       |
+| phonenumber | char(13)    | YES  | UNI | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table xzx12 drop column name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc xzx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| roll_no     | int      | NO   | PRI | NULL    |       |
+| age         | int      | YES  |     | 18      |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from xzx12;
++---------+------+---------------+-------------+
+| roll_no | age  | email         | phonenumber |
++---------+------+---------------+-------------+
+|       1 |   14 | s@gmail.com   | NULL        |
+|       2 |   14 | s12@gmail.com | NULL        |
+|      12 |   18 | xzy@gmail.com | NULL        |
++---------+------+---------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Student       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| xzx12         |
+| y             |
++---------------+
+16 rows in set (0.01 sec)
+
+mysql> rename table xzx12 to Studx12;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Student       |
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+16 rows in set (0.01 sec)
+
+mysql> select * from Studx12;
++---------+------+---------------+-------------+
+| roll_no | age  | email         | phonenumber |
++---------+------+---------------+-------------+
+|       1 |   14 | s@gmail.com   | NULL        |
+|       2 |   14 | s12@gmail.com | NULL        |
+|      12 |   18 | xzy@gmail.com | NULL        |
++---------+------+---------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> desc xzx12;
+ERROR 1146 (42S02): Table 'g15.xzx12' doesn't exist
+mysql> desc Studx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| roll_no     | int      | NO   | PRI | NULL    |       |
+| age         | int      | YES  |     | 18      |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Studx12 rename column roll_no to id;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Studx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int      | NO   | PRI | NULL    |       |
+| age         | int      | YES  |     | 18      |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Studx12 modify Student_age tinyint ;
+ERROR 1054 (42S22): Unknown column 'Student_age' in 'Studx12'
+mysql> TRUNCATE TABLE Studx12;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from Studx12;
+Empty set (0.00 sec)
+
+mysql> desc Studx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int      | NO   | PRI | NULL    |       |
+| age         | int      | YES  |     | 18      |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Student       |
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+16 rows in set (0.01 sec)
+
+mysql> select * from Student;
++------+
+| Name |
++------+
+| 😀     |
+| 😂     |
++------+
+2 rows in set (0.00 sec)
+
+mysql> drop table Student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+15 rows in set (0.00 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| chitkara            |
+| g12                 |
+| g13                 |
+| g14                 |
+| g14new              |
+| g15                 |
+| g16                 |
+| hpu                 |
+| information_schema  |
+| laptop              |
+| mysql               |
+| paruluni            |
+| performance_schema  |
+| sanskrituni         |
+| sys                 |
+| temporal_conversion |
+| timt                |
+| ty                  |
+| ty1                 |
++---------------------+
+19 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+15 rows in set (0.00 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| chitkara            |
+| g12                 |
+| g13                 |
+| g14                 |
+| g14new              |
+| g15                 |
+| g16                 |
+| hpu                 |
+| information_schema  |
+| laptop              |
+| mysql               |
+| paruluni            |
+| performance_schema  |
+| sanskrituni         |
+| sys                 |
+| temporal_conversion |
+| timt                |
+| ty                  |
+| ty1                 |
++---------------------+
+19 rows in set (0.00 sec)
+
+mysql> drop database chitkara;
+Query OK, 28 rows affected (0.22 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| g12                 |
+| g13                 |
+| g14                 |
+| g14new              |
+| g15                 |
+| g16                 |
+| hpu                 |
+| information_schema  |
+| laptop              |
+| mysql               |
+| paruluni            |
+| performance_schema  |
+| sanskrituni         |
+| sys                 |
+| temporal_conversion |
+| timt                |
+| ty                  |
+| ty1                 |
++---------------------+
+18 rows in set (0.00 sec)
+
+mysql> use g15;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+15 rows in set (0.01 sec)
+
+mysql> desc Studx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int      | NO   | PRI | NULL    |       |
+| age         | int      | YES  |     | 18      |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Studx12 change age Student_age tinyint 
+    -> ;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Studx12;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| id          | int      | NO   | PRI | NULL    |       |
+| Student_age | tinyint  | YES  |     | NULL    |       |
+| email       | char(13) | YES  | UNI | NULL    |       |
+| phonenumber | char(13) | YES  | UNI | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> rename database g15 to studentofg15;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database g15 to studentofg15' at line 1
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from binr;
++------------------------+------------------+
+| tempbinr               | tempvar          |
++------------------------+------------------+
+| 0x41000000000000000000 | 0x41             |
++------------------------+------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from fees;
+Empty set (0.00 sec)
+
+mysql> select  * from tr;
++------------+---------+--------------------+
+| temp       | temp1   | temp2              |
++------------+---------+--------------------+
+|  123456.78 | 12345.6 |   12345678912345.1 |
+| 1234567.79 | 12345.6 |   12345678912345.1 |
+| 1234567.79 | 12345.7 |   12345678912345.1 |
+| 1234567.79 | 12345.7 | 12345678912345.656 |
++------------+---------+--------------------+
+4 rows in set (0.01 sec)
+
+mysql> select  * from tr;
++------------+---------+--------------------+
+| temp       | temp1   | temp2              |
++------------+---------+--------------------+
+|  123456.78 | 12345.6 |   12345678912345.1 |
+| 1234567.79 | 12345.6 |   12345678912345.1 |
+| 1234567.79 | 12345.7 |   12345678912345.1 |
+| 1234567.79 | 12345.7 | 12345678912345.656 |
++------------+---------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select  temp  from tr;
++------------+
+| temp       |
++------------+
+|  123456.78 |
+| 1234567.79 |
+| 1234567.79 |
+| 1234567.79 |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> select  temp,temp1   from tr;
++------------+---------+
+| temp       | temp1   |
++------------+---------+
+|  123456.78 | 12345.6 |
+| 1234567.79 | 12345.6 |
+| 1234567.79 | 12345.7 |
+| 1234567.79 | 12345.7 |
++------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| temdatetime   |
+| tr            |
+| xyz123456     |
+| xzx1          |
+| y             |
++---------------+
+15 rows in set (0.01 sec)
+
+mysql> select * from info;
+Empty set (0.00 sec)
+
+mysql> select * from xyz123456;;
++----------+
+| isactive |
++----------+
+|        1 |
++----------+
+1 row in set (0.01 sec)
+
+ERROR: 
+No query specified
+
+mysql> select * from xyz123456;
++----------+
+| isactive |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from xzx1;
++------+
+| id   |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
+mysql> use g12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_g12    |
++------------------+
+| cne1             |
+| copyemp          |
+| copytempdatetime |
+| emp              |
+| gt               |
+| marks            |
+| ne               |
+| ne1              |
+| ne12             |
+| new2             |
+| newone           |
+| newonecopy       |
+| newonew          |
+| pet              |
+| samyak           |
+| studentofg12     |
+| students1        |
+| studx12          |
+| t1               |
+| t2               |
+| twentysecondjuly |
+| xy               |
+| xyz1x            |
+| xz               |
++------------------+
+24 rows in set (0.00 sec)
+
+mysql> select * from studentofg12;
+Empty set (0.01 sec)
+
+mysql> select * from students1;
+Empty set (0.01 sec)
+
+mysql> select * from studx12;
+Empty set (0.01 sec)
+
+mysql> select * from t1;
++------------------------+
+| temdatetime            |
++------------------------+
+| 2000-11-04 15:15:15.12 |
+| 2000-11-04 15:12:00.00 |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from t2;
++----------+
+| tetime   |
++----------+
+| 00:00:15 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from newonecopy;
++-------------+
+| email       |
++-------------+
+| s@gmail.com |
+| s@gmail.com |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from marks;
++-------+------+
+| marks | name |
++-------+------+
+|    45 | a    |
+|    78 | a    |
+|    15 | b    |
+|    25 | b    |
+|    69 | c    |
++-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select marks from marks;
++-------+
+| marks |
++-------+
+|    45 |
+|    78 |
+|    15 |
+|    25 |
+|    69 |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table marsk;
+ERROR 1146 (42S02): Table 'g12.marsk' doesn't exist
+mysql> show create table marks;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                            |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| marks | CREATE TABLE `marks` (
+  `marks` int DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select 5+5
+    -> ;
++-----+
+| 5+5 |
++-----+
+|  10 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> 
+

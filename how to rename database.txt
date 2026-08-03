@@ -1,0 +1,4 @@
+how to rename database
+how to change column name with data type
+How to delete only tables of database
+
