@@ -1,0 +1,821 @@
+mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use g14;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_g14 |
++---------------+
+| STUD123X      |
+| Student       |
+| binr          |
+| bool          |
+| copystudx1    |
+| gg            |
+| student12x    |
+| studx1        |
+| studx1x       |
+| t123456       |
+| t1234567      |
+| temptime2     |
+| time1         |
+| xyz           |
+| xyz123        |
+| xyz1234       |
+| xzx1          |
++---------------+
+17 rows in set (0.00 sec)
+
+mysql> select * from student;
+ERROR 1146 (42S02): Table 'g14.student' doesn't exist
+mysql> CREATE TABLE Employees ( 
+    ->     EmployeeID INT,
+    ->     FirstName VARCHAR(50),
+    ->     Department VARCHAR(50),
+    ->     Salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Employees (EmployeeID, FirstName, Department, Salary)
+    -> VALUES 
+    ->     (101, 'Alice', 'Engineering', 85000.00),
+    ->     (102, 'Bob', 'Marketing', 62000.00),
+    ->     (103, 'Charlie', 'Sales', 58000.00);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> 
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 85000.00 |
+|        102 | Bob       | Marketing   | 62000.00 |
+|        103 | Charlie   | Sales       | 58000.00 |
++------------+-----------+-------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 85000.00 |
+|        102 | Bob       | Marketing   | 62000.00 |
+|        103 | Charlie   | Sales       | 58000.00 |
++------------+-----------+-------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select EmployeeID from Employees;
++------------+
+| EmployeeID |
++------------+
+|        101 |
+|        102 |
+|        103 |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> select EmployeeID,FirstName  from Employees;
++------------+-----------+
+| EmployeeID | FirstName |
++------------+-----------+
+|        101 | Alice     |
+|        102 | Bob       |
+|        103 | Charlie   |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> desc Employees;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| EmployeeID | int           | YES  |     | NULL    |       |
+| FirstName  | varchar(50)   | YES  |     | NULL    |       |
+| Department | varchar(50)   | YES  |     | NULL    |       |
+| Salary     | decimal(10,2) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Employees values (1, "Ram", "btech", 30000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 85000.00 |
+|        102 | Bob       | Marketing   | 62000.00 |
+|        103 | Charlie   | Sales       | 58000.00 |
+|          1 | Ram       | btech       | 30000.00 |
++------------+-----------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into Employees values (1, "Ram", "btech", 30000),(1011,"alam",btech, 21354654),( 45, "sourav","btechaiml",654654),( 78, "hc","bca",316534 );
+ERROR 1054 (42S22): Unknown column 'btech' in 'field list'
+mysql> insert into Employees values (1, "Ram", "btech", 30000),(1011,"alam","btech", 21354654),( 45, "sourav","btechaiml",654654),( 78, "hc","bca",316534 );
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employees;
++------------+-----------+-------------+-------------+
+| EmployeeID | FirstName | Department  | Salary      |
++------------+-----------+-------------+-------------+
+|        101 | Alice     | Engineering |    85000.00 |
+|        102 | Bob       | Marketing   |    62000.00 |
+|        103 | Charlie   | Sales       |    58000.00 |
+|          1 | Ram       | btech       |    30000.00 |
+|          1 | Ram       | btech       |    30000.00 |
+|       1011 | alam      | btech       | 21354654.00 |
+|         45 | sourav    | btechaiml   |   654654.00 |
+|         78 | hc        | bca         |   316534.00 |
++------------+-----------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> desc Employees;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| EmployeeID | int           | YES  |     | NULL    |       |
+| FirstName  | varchar(50)   | YES  |     | NULL    |       |
+| Department | varchar(50)   | YES  |     | NULL    |       |
+| Salary     | decimal(10,2) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table tr1x (t int , t1 varchar(50), t2 varchar(50),t3 decimal (10,2));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into tr1x select * from Employees;
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr1x;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
++------+---------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into tr1x (t,t1) select EmployeeID,FirstName from Employees;
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from tr1x;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+|  101 | Alice   | NULL        |        NULL |
+|  102 | Bob     | NULL        |        NULL |
+|  103 | Charlie | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+| 1011 | alam    | NULL        |        NULL |
+|   45 | sourav  | NULL        |        NULL |
+|   78 | hc      | NULL        |        NULL |
++------+---------+-------------+-------------+
+16 rows in set (0.00 sec)
+
+mysql> insert into tr1x (t) values(45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from tr1x;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+|  101 | Alice   | NULL        |        NULL |
+|  102 | Bob     | NULL        |        NULL |
+|  103 | Charlie | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+| 1011 | alam    | NULL        |        NULL |
+|   45 | sourav  | NULL        |        NULL |
+|   78 | hc      | NULL        |        NULL |
+|   45 | NULL    | NULL        |        NULL |
++------+---------+-------------+-------------+
+17 rows in set (0.00 sec)
+
+mysql> insert into tr1x (t2 ,t3) values("btech",541564);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from tr1x;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+|  101 | Alice   | NULL        |        NULL |
+|  102 | Bob     | NULL        |        NULL |
+|  103 | Charlie | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+| 1011 | alam    | NULL        |        NULL |
+|   45 | sourav  | NULL        |        NULL |
+|   78 | hc      | NULL        |        NULL |
+|   45 | NULL    | NULL        |        NULL |
+| NULL | NULL    | btech       |   541564.00 |
++------+---------+-------------+-------------+
+18 rows in set (0.00 sec)
+
+mysql> select * from tr1x where t3 > 300000;
++------+--------+-----------+-------------+
+| t    | t1     | t2        | t3          |
++------+--------+-----------+-------------+
+| 1011 | alam   | btech     | 21354654.00 |
+|   45 | sourav | btechaiml |   654654.00 |
+|   78 | hc     | bca       |   316534.00 |
+| NULL | NULL   | btech     |   541564.00 |
++------+--------+-----------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from tr1x where t3 > 30000;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+| NULL | NULL    | btech       |   541564.00 |
++------+---------+-------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from tr1x where t3 >= 30000;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+| NULL | NULL    | btech       |   541564.00 |
++------+---------+-------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from tr1x where t3 <= 30000;
++------+------+-------+----------+
+| t    | t1   | t2    | t3       |
++------+------+-------+----------+
+|    1 | Ram  | btech | 30000.00 |
+|    1 | Ram  | btech | 30000.00 |
++------+------+-------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from tr1x where t3 < 30000;
+Empty set (0.00 sec)
+
+mysql> select * from Employees;
++------------+-----------+-------------+-------------+
+| EmployeeID | FirstName | Department  | Salary      |
++------------+-----------+-------------+-------------+
+|        101 | Alice     | Engineering |    85000.00 |
+|        102 | Bob       | Marketing   |    62000.00 |
+|        103 | Charlie   | Sales       |    58000.00 |
+|          1 | Ram       | btech       |    30000.00 |
+|          1 | Ram       | btech       |    30000.00 |
+|       1011 | alam      | btech       | 21354654.00 |
+|         45 | sourav    | btechaiml   |   654654.00 |
+|         78 | hc        | bca         |   316534.00 |
++------------+-----------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> update table Employees set Salary =15000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table Employees set Salary =15000' at line 1
+mysql> update  Employees set Salary =15000;
+Query OK, 8 rows affected (0.00 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 15000.00 |
+|        102 | Bob       | Marketing   | 15000.00 |
+|        103 | Charlie   | Sales       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
++------------+-----------+-------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> update  Employees set Salary =21000 where EmployeeID=101 ;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 21000.00 |
+|        102 | Bob       | Marketing   | 15000.00 |
+|        103 | Charlie   | Sales       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
++------------+-----------+-------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> update  Employees set EmployeeID=1021, FirstName="Sourav" where EmployeeId=102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 21000.00 |
+|       1021 | Sourav    | Marketing   | 15000.00 |
+|        103 | Charlie   | Sales       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
++------------+-----------+-------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from trx1;
+ERROR 1146 (42S02): Table 'g14.trx1' doesn't exist
+mysql> select * from tr1x;
++------+---------+-------------+-------------+
+| t    | t1      | t2          | t3          |
++------+---------+-------------+-------------+
+|  101 | Alice   | Engineering |    85000.00 |
+|  102 | Bob     | Marketing   |    62000.00 |
+|  103 | Charlie | Sales       |    58000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+|    1 | Ram     | btech       |    30000.00 |
+| 1011 | alam    | btech       | 21354654.00 |
+|   45 | sourav  | btechaiml   |   654654.00 |
+|   78 | hc      | bca         |   316534.00 |
+|  101 | Alice   | NULL        |        NULL |
+|  102 | Bob     | NULL        |        NULL |
+|  103 | Charlie | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+|    1 | Ram     | NULL        |        NULL |
+| 1011 | alam    | NULL        |        NULL |
+|   45 | sourav  | NULL        |        NULL |
+|   78 | hc      | NULL        |        NULL |
+|   45 | NULL    | NULL        |        NULL |
+| NULL | NULL    | btech       |   541564.00 |
++------+---------+-------------+-------------+
+18 rows in set (0.00 sec)
+
+mysql> delete from tr1x;
+Query OK, 18 rows affected (0.01 sec)
+
+mysql> select * from tr1x;
+Empty set (0.00 sec)
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 21000.00 |
+|       1021 | Sourav    | Marketing   | 15000.00 |
+|        103 | Charlie   | Sales       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
++------------+-----------+-------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> delete from Employees where EmployeeID=103;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Employees;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|        101 | Alice     | Engineering | 21000.00 |
+|       1021 | Sourav    | Marketing   | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
++------------+-----------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Employees order by EmployeeID ;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
+|        101 | Alice     | Engineering | 21000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|       1021 | Sourav    | Marketing   | 15000.00 |
++------------+-----------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Employees order by EmployeeID asc ;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|         78 | hc        | bca         | 15000.00 |
+|        101 | Alice     | Engineering | 21000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|       1021 | Sourav    | Marketing   | 15000.00 |
++------------+-----------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Employees order by EmployeeID desc ;
++------------+-----------+-------------+----------+
+| EmployeeID | FirstName | Department  | Salary   |
++------------+-----------+-------------+----------+
+|       1021 | Sourav    | Marketing   | 15000.00 |
+|       1011 | alam      | btech       | 15000.00 |
+|        101 | Alice     | Engineering | 21000.00 |
+|         78 | hc        | bca         | 15000.00 |
+|         45 | sourav    | btechaiml   | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
+|          1 | Ram       | btech       | 15000.00 |
++------------+-----------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> create table st (marks int , name varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into st values (78,'a' ),(45,'a'),(15,'b'),(98,'b'),(699,'c'),(123,'b');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
++-------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from st order by marks;
++-------+------+
+| marks | name |
++-------+------+
+|    15 | b    |
+|    45 | a    |
+|    78 | a    |
+|    98 | b    |
+|   123 | b    |
+|   699 | c    |
++-------+------+
+6 rows in set (0.05 sec)
+
+mysql> select * from st order by marsk desc , name asc;
+ERROR 1054 (42S22): Unknown column 'marsk' in 'order clause'
+mysql> select * from st order by marks desc , name asc;
++-------+------+
+| marks | name |
++-------+------+
+|   699 | c    |
+|   123 | b    |
+|    98 | b    |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
++-------+------+
+6 rows in set (0.01 sec)
+
+mysql> insert into st (marks)  values (78),(45),(98);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
++-------+------+
+9 rows in set (0.00 sec)
+
+mysql> select marks from st ;
++-------+
+| marks |
++-------+
+|    78 |
+|    45 |
+|    15 |
+|    98 |
+|   699 |
+|   123 |
+|    78 |
+|    45 |
+|    98 |
++-------+
+9 rows in set (0.00 sec)
+
+mysql> select distinct marks from st ;
++-------+
+| marks |
++-------+
+|    78 |
+|    45 |
+|    15 |
+|    98 |
+|   699 |
+|   123 |
++-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into st values (78,'a' ),(45,'a'),(15,'b'),(98,'b'),(699,'c'),(123,'b');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
++-------+------+
+15 rows in set (0.00 sec)
+
+mysql> select marks, name from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
++-------+------+
+15 rows in set (0.00 sec)
+
+mysql> select distinct marks ,name from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
++-------+------+
+9 rows in set (0.00 sec)
+
+mysql> select * from st limit 2;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from st limit 5;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
++-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
++-------+------+
+15 rows in set (0.01 sec)
+
+mysql> select * from st limit 2,2;
++-------+------+
+| marks | name |
++-------+------+
+|    15 | b    |
+|    98 | b    |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from st limit 2 offset 2;
++-------+------+
+| marks | name |
++-------+------+
+|    15 | b    |
+|    98 | b    |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from st limit 200 offset 200;
+Empty set (0.01 sec)
+
+mysql> select * from st limit 5 offset 5;
++-------+------+
+| marks | name |
++-------+------+
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
++-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from st;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   699 | c    |
+|   123 | b    |
++-------+------+
+15 rows in set (0.00 sec)
+
+mysql> select * from st order by name asc;
++-------+------+
+| marks | name |
++-------+------+
+|    78 | NULL |
+|    45 | NULL |
+|    98 | NULL |
+|    78 | a    |
+|    45 | a    |
+|    78 | a    |
+|    45 | a    |
+|    15 | b    |
+|    98 | b    |
+|   123 | b    |
+|    15 | b    |
+|    98 | b    |
+|   123 | b    |
+|   699 | c    |
+|   699 | c    |
++-------+------+
+15 rows in set (0.00 sec)
+
+mysql> desc st;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| marks | int         | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> alter table st modify marks bigint ;
+Query OK, 15 rows affected (0.15 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> desc st;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| marks | bigint      | YES  |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table st modify marks to studentmarks int primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to studentmarks int primary key' at line 1
+mysql> alter table st change  marks  studentmarks int primary key;
+ERROR 1062 (23000): Duplicate entry '78' for key 'st.PRIMARY'
+mysql> alter table st change  marks  studentmarks int not null ;
+Query OK, 15 rows affected (0.07 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> desc st;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| studentmarks | int         | NO   |     | NULL    |       |
+| name         | varchar(50) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
