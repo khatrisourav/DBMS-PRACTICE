@@ -1,0 +1,720 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> 
+mysql> 
+mysql> use g16;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table studx (roll_no int primary key , name varchar(50) not null , age int default 18, email varchar(50) unique);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tABLES;
++--------------------+
+| Tables_in_g16      |
++--------------------+
+| bool               |
+| charstr            |
+| image              |
+| image1             |
+| login              |
+| newone             |
+| num                |
+| orange             |
+| stu1               |
+| student12x         |
+| student23874538756 |
+| studentofg16       |
+| studx              |
+| t                  |
+| temp12             |
+| ty1                |
+| x123               |
++--------------------+
+17 rows in set (0.00 sec)
+
+mysql> describe studx;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(50) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | 18      |       |
+| email   | varchar(50) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into studx values (1,"Sourav",17, "s@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from studx;
++---------+--------+------+-------------+
+| roll_no | name   | age  | email       |
++---------+--------+------+-------------+
+|       1 | Sourav |   17 | s@gmail.com |
++---------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into studx values (1,"Sourav",17, "s@gmail.com");
+ERROR 1062 (23000): Duplicate entry '1' for key 'studx.PRIMARY'
+mysql> insert into studx values (2,"Sourav",17, "s@gmail.com");
+ERROR 1062 (23000): Duplicate entry 's@gmail.com' for key 'studx.email'
+mysql> insert into studx values (2,"Sourav",17, "s1@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from studx;
++---------+--------+------+--------------+
+| roll_no | name   | age  | email        |
++---------+--------+------+--------------+
+|       1 | Sourav |   17 | s@gmail.com  |
+|       2 | Sourav |   17 | s1@gmail.com |
++---------+--------+------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into studx (roll_no , name , email) values(45,"Ram",xyz@gmail.com");
+    "> ;
+    "> ^C
+mysql> insert into studx (roll_no , name , email) values(45,"Ram","xyz@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from studx;
++---------+--------+------+---------------+
+| roll_no | name   | age  | email         |
++---------+--------+------+---------------+
+|       1 | Sourav |   17 | s@gmail.com   |
+|       2 | Sourav |   17 | s1@gmail.com  |
+|      45 | Ram    |   18 | xyz@gmail.com |
++---------+--------+------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into studx (roll_no , age , email) values(78, 45, "@gm");
+ERROR 1364 (HY000): Field 'name' doesn't have a default value
+mysql> desc studx;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(50) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | 18      |       |
+| email   | varchar(50) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table studx add phone_number varchar(50);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe studx;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| roll_no      | int         | NO   | PRI | NULL    |       |
+| name         | varchar(50) | NO   |     | NULL    |       |
+| age          | int         | YES  |     | 18      |       |
+| email        | varchar(50) | YES  | UNI | NULL    |       |
+| phone_number | varchar(50) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table studx modify age tinyint ;
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> describe studx;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| roll_no      | int         | NO   | PRI | NULL    |       |
+| name         | varchar(50) | NO   |     | NULL    |       |
+| age          | tinyint     | YES  |     | NULL    |       |
+| email        | varchar(50) | YES  | UNI | NULL    |       |
+| phone_number | varchar(50) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from phone_number;
+ERROR 1146 (42S02): Table 'g16.phone_number' doesn't exist
+mysql> select * from studx;
++---------+--------+------+---------------+--------------+
+| roll_no | name   | age  | email         | phone_number |
++---------+--------+------+---------------+--------------+
+|       1 | Sourav |   17 | s@gmail.com   | NULL         |
+|       2 | Sourav |   17 | s1@gmail.com  | NULL         |
+|      45 | Ram    |   18 | xyz@gmail.com | NULL         |
++---------+--------+------+---------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table studx drop column email;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe studx;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| roll_no      | int         | NO   | PRI | NULL    |       |
+| name         | varchar(50) | NO   |     | NULL    |       |
+| age          | tinyint     | YES  |     | NULL    |       |
+| phone_number | varchar(50) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> rename table studx to studentsw;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_g16      |
++--------------------+
+| bool               |
+| charstr            |
+| image              |
+| image1             |
+| login              |
+| newone             |
+| num                |
+| orange             |
+| stu1               |
+| student12x         |
+| student23874538756 |
+| studentofg16       |
+| studentsw          |
+| t                  |
+| temp12             |
+| ty1                |
+| x123               |
++--------------------+
+17 rows in set (0.00 sec)
+
+mysql> select * from studentsw;
++---------+--------+------+--------------+
+| roll_no | name   | age  | phone_number |
++---------+--------+------+--------------+
+|       1 | Sourav |   17 | NULL         |
+|       2 | Sourav |   17 | NULL         |
+|      45 | Ram    |   18 | NULL         |
++---------+--------+------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table studentsw rename roll_no to Studentroll_no ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Studentroll_no' at line 1
+mysql> alter table studentsw rename column  roll_no to Studentroll_no ;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe studx;
+ERROR 1146 (42S02): Table 'g16.studx' doesn't exist
+mysql> describe studentsw;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Studentroll_no | int         | NO   | PRI | NULL    |       |
+| name           | varchar(50) | NO   |     | NULL    |       |
+| age            | tinyint     | YES  |     | NULL    |       |
+| phone_number   | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table studentsw change age student_age int default 35;
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> describe studentsw;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Studentroll_no | int         | NO   | PRI | NULL    |       |
+| name           | varchar(50) | NO   |     | NULL    |       |
+| student_age    | int         | YES  |     | 35      |       |
+| phone_number   | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_g16      |
++--------------------+
+| bool               |
+| charstr            |
+| image              |
+| image1             |
+| login              |
+| newone             |
+| num                |
+| orange             |
+| stu1               |
+| student12x         |
+| student23874538756 |
+| studentofg16       |
+| studentsw          |
+| t                  |
+| temp12             |
+| ty1                |
+| x123               |
++--------------------+
+17 rows in set (0.00 sec)
+
+mysql> select * from bool;
++----------+
+| isactive |
++----------+
+|        1 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select * from x123;
+Empty set (0.01 sec)
+
+mysql> select * from ty1;
++-------------+
+| temptime    |
++-------------+
+| 15:15:15.12 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentsw;
++----------------+--------+-------------+--------------+
+| Studentroll_no | name   | student_age | phone_number |
++----------------+--------+-------------+--------------+
+|              1 | Sourav |          17 | NULL         |
+|              2 | Sourav |          17 | NULL         |
+|             45 | Ram    |          18 | NULL         |
++----------------+--------+-------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table studentsw;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from studentsw;
+Empty set (0.00 sec)
+
+mysql> describe studentsw;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| Studentroll_no | int         | NO   | PRI | NULL    |       |
+| name           | varchar(50) | NO   |     | NULL    |       |
+| student_age    | int         | YES  |     | 35      |       |
+| phone_number   | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from bool;
++----------+
+| isactive |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> drop table bool;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_g16      |
++--------------------+
+| charstr            |
+| image              |
+| image1             |
+| login              |
+| newone             |
+| num                |
+| orange             |
+| stu1               |
+| student12x         |
+| student23874538756 |
+| studentofg16       |
+| studentsw          |
+| t                  |
+| temp12             |
+| ty1                |
+| x123               |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> describe bool;
+ERROR 1146 (42S02): Table 'g16.bool' doesn't exist
+mysql> use pr;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++--------------+
+| Tables_in_pr |
++--------------+
+| departments  |
+| employees    |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
++---------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id from departments;
++---------+
+| dept_id |
++---------+
+|     101 |
+|     102 |
+|     103 |
+|     104 |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id, dept_name  from departments;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|     101 | IT        |
+|     102 | HR        |
+|     103 | Sales     |
+|     104 | Finance   |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
++---------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> insert into departments values (105, "btech", "rajpura");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
+|     105 | btech     | rajpura   |
++---------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into departments values (106, "bca", "chd"),( 107,"bpharma","delhi"),(108,"mba", "chd" ),(109, "mpharma","banglore" );
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
+|     105 | btech     | rajpura   |
+|     106 | bca       | chd       |
+|     107 | bpharma   | delhi     |
+|     108 | mba       | chd       |
+|     109 | mpharma   | banglore  |
++---------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> insert into departments (dept_id) values(1065);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
+|     105 | btech     | rajpura   |
+|     106 | bca       | chd       |
+|     107 | bpharma   | delhi     |
+|     108 | mba       | chd       |
+|     109 | mpharma   | banglore  |
+|    1065 | NULL      | NULL      |
++---------+-----------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> desc departments ;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int         | NO   | PRI | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
+| location  | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table copydepartment (t int , t1 varchar(50) , t2 varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into copydepartment select * from department;
+ERROR 1146 (42S02): Table 'pr.department' doesn't exist
+mysql> insert into copydepartment select * from departments;
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from copydepartment;
++------+---------+-----------+
+| t    | t1      | t2        |
++------+---------+-----------+
+|  101 | IT      | Delhi     |
+|  102 | HR      | Mumbai    |
+|  103 | Sales   | Bangalore |
+|  104 | Finance | Delhi     |
+|  105 | btech   | rajpura   |
+|  106 | bca     | chd       |
+|  107 | bpharma | delhi     |
+|  108 | mba     | chd       |
+|  109 | mpharma | banglore  |
+| 1065 | NULL    | NULL      |
++------+---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> insert into copydepartment (t) select dept_id from departments;
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from copydepartment;
++------+---------+-----------+
+| t    | t1      | t2        |
++------+---------+-----------+
+|  101 | IT      | Delhi     |
+|  102 | HR      | Mumbai    |
+|  103 | Sales   | Bangalore |
+|  104 | Finance | Delhi     |
+|  105 | btech   | rajpura   |
+|  106 | bca     | chd       |
+|  107 | bpharma | delhi     |
+|  108 | mba     | chd       |
+|  109 | mpharma | banglore  |
+| 1065 | NULL    | NULL      |
+|  101 | NULL    | NULL      |
+|  102 | NULL    | NULL      |
+|  103 | NULL    | NULL      |
+|  104 | NULL    | NULL      |
+|  105 | NULL    | NULL      |
+|  106 | NULL    | NULL      |
+|  107 | NULL    | NULL      |
+|  108 | NULL    | NULL      |
+|  109 | NULL    | NULL      |
+| 1065 | NULL    | NULL      |
++------+---------+-----------+
+20 rows in set (0.00 sec)
+
+mysql> select * from copydepartment;
++------+---------+-----------+
+| t    | t1      | t2        |
++------+---------+-----------+
+|  101 | IT      | Delhi     |
+|  102 | HR      | Mumbai    |
+|  103 | Sales   | Bangalore |
+|  104 | Finance | Delhi     |
+|  105 | btech   | rajpura   |
+|  106 | bca     | chd       |
+|  107 | bpharma | delhi     |
+|  108 | mba     | chd       |
+|  109 | mpharma | banglore  |
+| 1065 | NULL    | NULL      |
+|  101 | NULL    | NULL      |
+|  102 | NULL    | NULL      |
+|  103 | NULL    | NULL      |
+|  104 | NULL    | NULL      |
+|  105 | NULL    | NULL      |
+|  106 | NULL    | NULL      |
+|  107 | NULL    | NULL      |
+|  108 | NULL    | NULL      |
+|  109 | NULL    | NULL      |
+| 1065 | NULL    | NULL      |
++------+---------+-----------+
+20 rows in set (0.00 sec)
+
+mysql> select * from copydepartment where t= 105;
++------+-------+---------+
+| t    | t1    | t2      |
++------+-------+---------+
+|  105 | btech | rajpura |
+|  105 | NULL  | NULL    |
++------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from copydepartment where t>105;
++------+---------+----------+
+| t    | t1      | t2       |
++------+---------+----------+
+|  106 | bca     | chd      |
+|  107 | bpharma | delhi    |
+|  108 | mba     | chd      |
+|  109 | mpharma | banglore |
+| 1065 | NULL    | NULL     |
+|  106 | NULL    | NULL     |
+|  107 | NULL    | NULL     |
+|  108 | NULL    | NULL     |
+|  109 | NULL    | NULL     |
+| 1065 | NULL    | NULL     |
++------+---------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from copydepartment;
++------+---------+-----------+
+| t    | t1      | t2        |
++------+---------+-----------+
+|  101 | IT      | Delhi     |
+|  102 | HR      | Mumbai    |
+|  103 | Sales   | Bangalore |
+|  104 | Finance | Delhi     |
+|  105 | btech   | rajpura   |
+|  106 | bca     | chd       |
+|  107 | bpharma | delhi     |
+|  108 | mba     | chd       |
+|  109 | mpharma | banglore  |
+| 1065 | NULL    | NULL      |
+|  101 | NULL    | NULL      |
+|  102 | NULL    | NULL      |
+|  103 | NULL    | NULL      |
+|  104 | NULL    | NULL      |
+|  105 | NULL    | NULL      |
+|  106 | NULL    | NULL      |
+|  107 | NULL    | NULL      |
+|  108 | NULL    | NULL      |
+|  109 | NULL    | NULL      |
+| 1065 | NULL    | NULL      |
++------+---------+-----------+
+20 rows in set (0.00 sec)
+
+mysql> update copydepartment set t1="it" , t2= "banglore";
+Query OK, 20 rows affected (0.01 sec)
+Rows matched: 20  Changed: 20  Warnings: 0
+
+mysql> select * from copydepartment;
++------+------+----------+
+| t    | t1   | t2       |
++------+------+----------+
+|  101 | it   | banglore |
+|  102 | it   | banglore |
+|  103 | it   | banglore |
+|  104 | it   | banglore |
+|  105 | it   | banglore |
+|  106 | it   | banglore |
+|  107 | it   | banglore |
+|  108 | it   | banglore |
+|  109 | it   | banglore |
+| 1065 | it   | banglore |
+|  101 | it   | banglore |
+|  102 | it   | banglore |
+|  103 | it   | banglore |
+|  104 | it   | banglore |
+|  105 | it   | banglore |
+|  106 | it   | banglore |
+|  107 | it   | banglore |
+|  108 | it   | banglore |
+|  109 | it   | banglore |
+| 1065 | it   | banglore |
++------+------+----------+
+20 rows in set (0.00 sec)
+
+mysql> update copydepartment set t1="bca" , t2= "delhi " where t= 1065;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from copydepartment;
++------+------+----------+
+| t    | t1   | t2       |
++------+------+----------+
+|  101 | it   | banglore |
+|  102 | it   | banglore |
+|  103 | it   | banglore |
+|  104 | it   | banglore |
+|  105 | it   | banglore |
+|  106 | it   | banglore |
+|  107 | it   | banglore |
+|  108 | it   | banglore |
+|  109 | it   | banglore |
+| 1065 | bca  | delhi    |
+|  101 | it   | banglore |
+|  102 | it   | banglore |
+|  103 | it   | banglore |
+|  104 | it   | banglore |
+|  105 | it   | banglore |
+|  106 | it   | banglore |
+|  107 | it   | banglore |
+|  108 | it   | banglore |
+|  109 | it   | banglore |
+| 1065 | bca  | delhi    |
++------+------+----------+
+20 rows in set (0.00 sec)
+
+mysql> delete from copydepartment;
+Query OK, 20 rows affected (0.01 sec)
+
+mysql> select * from copydepartment;
+Empty set (0.00 sec)
+
+mysql> select * from department;
+ERROR 1146 (42S02): Table 'pr.department' doesn't exist
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
+|     105 | btech     | rajpura   |
+|     106 | bca       | chd       |
+|     107 | bpharma   | delhi     |
+|     108 | mba       | chd       |
+|     109 | mpharma   | banglore  |
+|    1065 | NULL      | NULL      |
++---------+-----------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> delete from departments where dept_id = 1065;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from departments;
++---------+-----------+-----------+
+| dept_id | dept_name | location  |
++---------+-----------+-----------+
+|     101 | IT        | Delhi     |
+|     102 | HR        | Mumbai    |
+|     103 | Sales     | Bangalore |
+|     104 | Finance   | Delhi     |
+|     105 | btech     | rajpura   |
+|     106 | bca       | chd       |
+|     107 | bpharma   | delhi     |
+|     108 | mba       | chd       |
+|     109 | mpharma   | banglore  |
++---------+-----------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> 
+
