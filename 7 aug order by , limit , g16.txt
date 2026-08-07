@@ -1,0 +1,422 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> use g15;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from sc1;
+ERROR 1146 (42S02): Table 'g15.sc1' doesn't exist
+mysql> select * from xc1;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
+|  2 | b    |
+|  3 | c    |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_g15 |
++---------------+
+| Studx12       |
+| binr          |
+| bool          |
+| c             |
+| copyxyzx1     |
+| fees          |
+| gfifteen      |
+| image         |
+| info          |
+| ini           |
+| micr          |
+| studentofg15  |
+| t             |
+| temdatetime   |
+| tr            |
+| xc            |
+| xc1           |
+| xyz123456     |
+| xyzx1         |
+| xzx1          |
+| y             |
++---------------+
+21 rows in set (0.00 sec)
+
+mysql> select * from xc;
+Empty set (0.00 sec)
+
+mysql> select * from t;
++------+------+
+| n    | a    |
++------+------+
+| a    |   10 |
+| a    |   10 |
+| b    |   20 |
+| b    |   20 |
+| a    |   30 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select n from t;
++------+
+| n    |
++------+
+| a    |
+| a    |
+| b    |
+| b    |
+| a    |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select  distinct  n from t;
++------+
+| n    |
++------+
+| a    |
+| b    |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select  distinct  n ,a from t;
++------+------+
+| n    | a    |
++------+------+
+| a    |   10 |
+| b    |   20 |
+| a    |   30 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from xyzx1;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| Sourav   | NULL |  NULL |
+| b        |   45 |    46 |
+| c        |   15 |    16 |
+| d        |   42 |    43 |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select age from xyzx1;
++------+
+| age  |
++------+
+| NULL |
+|   45 |
+|   15 |
+|   42 |
+| NULL |
+| NULL |
++------+
+6 rows in set (0.00 sec)
+
+mysql> select age from xyzx1 order by age desc;
++------+
+| age  |
++------+
+|   45 |
+|   42 |
+|   15 |
+| NULL |
+| NULL |
+| NULL |
++------+
+6 rows in set (0.00 sec)
+
+mysql> select *  from xyzx1 order by age desc;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| b        |   45 |    46 |
+| d        |   42 |    43 |
+| c        |   15 |    16 |
+| Sourav   | NULL |  NULL |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select *  from xyzx1 order by age asc;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| Sourav   | NULL |  NULL |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
+| c        |   15 |    16 |
+| d        |   42 |    43 |
+| b        |   45 |    46 |
++----------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select n from t;
++------+
+| n    |
++------+
+| a    |
+| a    |
+| b    |
+| b    |
+| a    |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select * from t;
++------+------+
+| n    | a    |
++------+------+
+| a    |   10 |
+| a    |   10 |
+| b    |   20 |
+| b    |   20 |
+| a    |   30 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from t order by n asc;
++------+------+
+| n    | a    |
++------+------+
+| a    |   10 |
+| a    |   10 |
+| a    |   30 |
+| b    |   20 |
+| b    |   20 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from t order by n desc;
++------+------+
+| n    | a    |
++------+------+
+| b    |   20 |
+| b    |   20 |
+| a    |   10 |
+| a    |   10 |
+| a    |   30 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from t;
++------+------+
+| n    | a    |
++------+------+
+| a    |   10 |
+| a    |   10 |
+| b    |   20 |
+| b    |   20 |
+| a    |   30 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from t order by n asc , a desc ;
++------+------+
+| n    | a    |
++------+------+
+| a    |   30 |
+| a    |   10 |
+| a    |   10 |
+| b    |   20 |
+| b    |   20 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from xyzx1;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| Sourav   | NULL |  NULL |
+| b        |   45 |    46 |
+| c        |   15 |    16 |
+| d        |   42 |    43 |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 2;
++--------+------+-------+
+| name   | age  | marks |
++--------+------+-------+
+| Sourav | NULL |  NULL |
+| b      |   45 |    46 |
++--------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 3;
++--------+------+-------+
+| name   | age  | marks |
++--------+------+-------+
+| Sourav | NULL |  NULL |
+| b      |   45 |    46 |
+| c      |   15 |    16 |
++--------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 300;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| Sourav   | NULL |  NULL |
+| b        |   45 |    46 |
+| c        |   15 |    16 |
+| d        |   42 |    43 |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 3 , 2;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| d        |   42 |    43 |
+| vanshika | NULL |  NULL |
++----------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 4 , 2;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xyzx1 limit 4  offset 2;
++----------+------+-------+
+| name     | age  | marks |
++----------+------+-------+
+| c        |   15 |    16 |
+| d        |   42 |    43 |
+| vanshika | NULL |  NULL |
+| purva    | NULL |  NULL |
++----------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table xyzx1 change name Student_name char(13) not null;
+Query OK, 6 rows affected (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc xyzx1;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| Student_name | char(13) | NO   |     | NULL    |       |
+| age          | tinyint  | YES  |     | NULL    |       |
+| marks        | int      | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from xyzx1 where marks <>16;
++--------------+------+-------+
+| Student_name | age  | marks |
++--------------+------+-------+
+| b            |   45 |    46 |
+| d            |   42 |    43 |
++--------------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xc1 ;
++----+------+
+| id | name |
++----+------+
+|  1 | a    |
+|  2 | b    |
+|  3 | c    |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table xc1;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> describe xc1;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from xc1;
+Empty set (0.00 sec)
+
+mysql> insert into xc1 (name) values ("Ram") , ("Sourav"), ("Angel");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from xc1;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | Ram    |
+|  2 | Sourav |
+|  3 | Angel  |
++----+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from xc1;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> select * from xc1;
+Empty set (0.00 sec)
+
+mysql> insert into xc1 (name) values ("Ram") , ("Sourav"), ("Angel");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from xc1;
++----+--------+
+| id | name   |
++----+--------+
+|  4 | Ram    |
+|  5 | Sourav |
+|  6 | Angel  |
++----+--------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table xc1;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from xc1;
+Empty set (0.00 sec)
+
+mysql> insert into xc1 (name) values ("Ram") , ("Sourav"), ("Angel");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from xc1;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | Ram    |
+|  2 | Sourav |
+|  3 | Angel  |
++----+--------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
