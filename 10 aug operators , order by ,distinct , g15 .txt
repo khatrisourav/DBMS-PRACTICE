@@ -1,0 +1,509 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> 
+mysql> 
+mysql> use pr;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_pr   |
++----------------+
+| copydepartment |
+| departments    |
+| employees      |
+| f              |
+| g              |
+| g1             |
+| g12            |
+| global_menu    |
+| students       |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from f;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | é     |
+|    2 | e     |
+|    3 | Rahul |
+|    4 | rahul |
+|    3 | é     |
++------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from g;
+Empty set (0.00 sec)
+
+mysql> select * from g1;
++----+-------+
+| id | marks |
++----+-------+
+|  4 |    78 |
+|  5 |    65 |
+|  6 |    78 |
++----+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table g12x (name varchar (50) , age tinyint);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into g12x values ("A", 15 ),("B",25),( "A",35),("B",45),("A",16);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from g12x;
++------+------+
+| name | age  |
++------+------+
+| A    |   15 |
+| B    |   25 |
+| A    |   35 |
+| B    |   45 |
+| A    |   16 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select name fromo g12x order by name asc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'g12x order by name asc' at line 1
+mysql> select name from g12x order by name asc;
++------+
+| name |
++------+
+| A    |
+| A    |
+| A    |
+| B    |
+| B    |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select name from g12x order by name asc ,age desc;
++------+
+| name |
++------+
+| A    |
+| A    |
+| A    |
+| B    |
+| B    |
++------+
+5 rows in set (0.00 sec)
+
+mysql> select name , age  from g12x order by name asc ,age desc;
++------+------+
+| name | age  |
++------+------+
+| A    |   35 |
+| A    |   16 |
+| A    |   15 |
+| B    |   45 |
+| B    |   25 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from g12x;
++------+------+
+| name | age  |
++------+------+
+| A    |   15 |
+| B    |   25 |
+| A    |   35 |
+| B    |   45 |
+| A    |   16 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct name from g12x;
++------+
+| name |
++------+
+| A    |
+| B    |
++------+
+2 rows in set (0.01 sec)
+
+mysql> select distinct name, age from g12x;
++------+------+
+| name | age  |
++------+------+
+| A    |   15 |
+| B    |   25 |
+| A    |   35 |
+| B    |   45 |
+| A    |   16 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> update g12x set age = 15 where age = 35;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from g12x;
++------+------+
+| name | age  |
++------+------+
+| A    |   15 |
+| B    |   25 |
+| A    |   15 |
+| B    |   45 |
+| A    |   16 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct name, age from g12x;
++------+------+
+| name | age  |
++------+------+
+| A    |   15 |
+| B    |   25 |
+| B    |   45 |
+| A    |   16 |
++------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees;
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email             | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      1 | Rahul      | Sharma    | rahul@gmail.com   |   28 | Male   | Delhi     |  75000.00 |     101 | 2021-03-15 |                 4 |
+|      2 | Priya      | Verma     | priya@yahoo.com   |   32 | Female | Mumbai    |  90000.00 |     102 | 2019-06-20 |                 5 |
+|      3 | Amit       | Kumar     | NULL              |   24 | Male   | Delhi     |      NULL |     101 | 2023-01-10 |                 3 |
+|      4 | Rohit      | Singh     | rohit@gmail.com   |   29 | Male   | Bangalore |  60000.00 |     103 | 2022-11-05 |                 2 |
+|      5 | Sneha      | Gupta     | sneha@outlook.com |   35 | Female | Delhi     | 120000.00 |     101 | 2018-02-12 |                 5 |
+|      6 | Vikas      | Yadav     | NULL              |   22 | Male   | Pune      |  35000.00 |     103 | 2023-07-01 |              NULL |
+|      7 | Ananya     | Roy       | ananya@gmail.com  |   27 | Female | Bangalore |  58000.00 |     103 | 2021-09-18 |                 4 |
+|      8 | Karan      | Mehta     | karan@gmail.com   |   40 | Male   | Mumbai    | 110000.00 |     104 | 2015-05-30 |                 5 |
+|      9 | Rohan      | Das       | rohan@yahoo.com   |   31 | Male   | Delhi     |  82000.00 |     101 | 2020-10-10 |                 3 |
+|     10 | Pooja      | Joshi     | pooja@gmail.com   |   26 | Female | Pune      |      NULL |     102 | 2022-04-14 |                 1 |
+|     11 | Aarav      | Sharma    | aarav@gmail.com   |   23 | Male   | Delhi     |  40000.00 |    NULL | 2023-08-20 |              NULL |
+|     12 | Riya       | Sen       | riya@outlook.com  |   30 | Female | Kolkata   |  67000.00 |     103 | 2020-01-15 |                 4 |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+12 rows in set (0.01 sec)
+
+mysql> select first_name , salary from employees where salary > 80000;
++------------+-----------+
+| first_name | salary    |
++------------+-----------+
+| Priya      |  90000.00 |
+| Sneha      | 120000.00 |
+| Karan      | 110000.00 |
+| Rohan      |  82000.00 |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary >= 80000;
++------------+-----------+
+| first_name | salary    |
++------------+-----------+
+| Priya      |  90000.00 |
+| Sneha      | 120000.00 |
+| Karan      | 110000.00 |
+| Rohan      |  82000.00 |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary < 80000;
++------------+----------+
+| first_name | salary   |
++------------+----------+
+| Rahul      | 75000.00 |
+| Rohit      | 60000.00 |
+| Vikas      | 35000.00 |
+| Ananya     | 58000.00 |
+| Aarav      | 40000.00 |
+| Riya       | 67000.00 |
++------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary <= 80000;
++------------+----------+
+| first_name | salary   |
++------------+----------+
+| Rahul      | 75000.00 |
+| Rohit      | 60000.00 |
+| Vikas      | 35000.00 |
+| Ananya     | 58000.00 |
+| Aarav      | 40000.00 |
+| Riya       | 67000.00 |
++------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary != 80000;
++------------+-----------+
+| first_name | salary    |
++------------+-----------+
+| Rahul      |  75000.00 |
+| Priya      |  90000.00 |
+| Rohit      |  60000.00 |
+| Sneha      | 120000.00 |
+| Vikas      |  35000.00 |
+| Ananya     |  58000.00 |
+| Karan      | 110000.00 |
+| Rohan      |  82000.00 |
+| Aarav      |  40000.00 |
+| Riya       |  67000.00 |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary <>mys 80000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '80000' at line 1
+mysql> select first_name , city, salary from employees where city="Delhi" and salary > 40000;
++------------+-------+-----------+
+| first_name | city  | salary    |
++------------+-------+-----------+
+| Rahul      | Delhi |  75000.00 |
+| Sneha      | Delhi | 120000.00 |
+| Rohan      | Delhi |  82000.00 |
++------------+-------+-----------+
+3 rows in set (0.01 sec)
+
+mysql> select first_name , city, salary from employees where city="Delhi" &&  salary > 40000;
++------------+-------+-----------+
+| first_name | city  | salary    |
++------------+-------+-----------+
+| Rahul      | Delhi |  75000.00 |
+| Sneha      | Delhi | 120000.00 |
+| Rohan      | Delhi |  82000.00 |
++------------+-------+-----------+
+3 rows in set, 1 warning (0.00 sec)
+
+mysql> select first_name , city, salary from employees where city="Delhi" ||  salary > 40000;
++------------+-----------+-----------+
+| first_name | city      | salary    |
++------------+-----------+-----------+
+| Rahul      | Delhi     |  75000.00 |
+| Priya      | Mumbai    |  90000.00 |
+| Amit       | Delhi     |      NULL |
+| Rohit      | Bangalore |  60000.00 |
+| Sneha      | Delhi     | 120000.00 |
+| Ananya     | Bangalore |  58000.00 |
+| Karan      | Mumbai    | 110000.00 |
+| Rohan      | Delhi     |  82000.00 |
+| Aarav      | Delhi     |  40000.00 |
+| Riya       | Kolkata   |  67000.00 |
++------------+-----------+-----------+
+10 rows in set, 1 warning (0.00 sec)
+
+mysql> select first_name , city, salary from employees where city="Delhi" ||  salary > 40000;
++------------+-----------+-----------+
+| first_name | city      | salary    |
++------------+-----------+-----------+
+| Rahul      | Delhi     |  75000.00 |
+| Priya      | Mumbai    |  90000.00 |
+| Amit       | Delhi     |      NULL |
+| Rohit      | Bangalore |  60000.00 |
+| Sneha      | Delhi     | 120000.00 |
+| Ananya     | Bangalore |  58000.00 |
+| Karan      | Mumbai    | 110000.00 |
+| Rohan      | Delhi     |  82000.00 |
+| Aarav      | Delhi     |  40000.00 |
+| Riya       | Kolkata   |  67000.00 |
++------------+-----------+-----------+
+10 rows in set, 1 warning (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE  gender = 'Female';
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email             | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      2 | Priya      | Verma     | priya@yahoo.com   |   32 | Female | Mumbai    |  90000.00 |     102 | 2019-06-20 |                 5 |
+|      5 | Sneha      | Gupta     | sneha@outlook.com |   35 | Female | Delhi     | 120000.00 |     101 | 2018-02-12 |                 5 |
+|      7 | Ananya     | Roy       | ananya@gmail.com  |   27 | Female | Bangalore |  58000.00 |     103 | 2021-09-18 |                 4 |
+|     10 | Pooja      | Joshi     | pooja@gmail.com   |   26 | Female | Pune      |      NULL |     102 | 2022-04-14 |                 1 |
+|     12 | Riya       | Sen       | riya@outlook.com  |   30 | Female | Kolkata   |  67000.00 |     103 | 2020-01-15 |                 4 |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE  not  gender = 'Female';
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email           | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      1 | Rahul      | Sharma    | rahul@gmail.com |   28 | Male   | Delhi     |  75000.00 |     101 | 2021-03-15 |                 4 |
+|      3 | Amit       | Kumar     | NULL            |   24 | Male   | Delhi     |      NULL |     101 | 2023-01-10 |                 3 |
+|      4 | Rohit      | Singh     | rohit@gmail.com |   29 | Male   | Bangalore |  60000.00 |     103 | 2022-11-05 |                 2 |
+|      6 | Vikas      | Yadav     | NULL            |   22 | Male   | Pune      |  35000.00 |     103 | 2023-07-01 |              NULL |
+|      8 | Karan      | Mehta     | karan@gmail.com |   40 | Male   | Mumbai    | 110000.00 |     104 | 2015-05-30 |                 5 |
+|      9 | Rohan      | Das       | rohan@yahoo.com |   31 | Male   | Delhi     |  82000.00 |     101 | 2020-10-10 |                 3 |
+|     11 | Aarav      | Sharma    | aarav@gmail.com |   23 | Male   | Delhi     |  40000.00 |    NULL | 2023-08-20 |              NULL |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE  nOt  gender = 'Female';
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email           | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      1 | Rahul      | Sharma    | rahul@gmail.com |   28 | Male   | Delhi     |  75000.00 |     101 | 2021-03-15 |                 4 |
+|      3 | Amit       | Kumar     | NULL            |   24 | Male   | Delhi     |      NULL |     101 | 2023-01-10 |                 3 |
+|      4 | Rohit      | Singh     | rohit@gmail.com |   29 | Male   | Bangalore |  60000.00 |     103 | 2022-11-05 |                 2 |
+|      6 | Vikas      | Yadav     | NULL            |   22 | Male   | Pune      |  35000.00 |     103 | 2023-07-01 |              NULL |
+|      8 | Karan      | Mehta     | karan@gmail.com |   40 | Male   | Mumbai    | 110000.00 |     104 | 2015-05-30 |                 5 |
+|      9 | Rohan      | Das       | rohan@yahoo.com |   31 | Male   | Delhi     |  82000.00 |     101 | 2020-10-10 |                 3 |
+|     11 | Aarav      | Sharma    | aarav@gmail.com |   23 | Male   | Delhi     |  40000.00 |    NULL | 2023-08-20 |              NULL |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELeCT * FROM employees WHERE  nOt  gender = 'Female';
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email           | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      1 | Rahul      | Sharma    | rahul@gmail.com |   28 | Male   | Delhi     |  75000.00 |     101 | 2021-03-15 |                 4 |
+|      3 | Amit       | Kumar     | NULL            |   24 | Male   | Delhi     |      NULL |     101 | 2023-01-10 |                 3 |
+|      4 | Rohit      | Singh     | rohit@gmail.com |   29 | Male   | Bangalore |  60000.00 |     103 | 2022-11-05 |                 2 |
+|      6 | Vikas      | Yadav     | NULL            |   22 | Male   | Pune      |  35000.00 |     103 | 2023-07-01 |              NULL |
+|      8 | Karan      | Mehta     | karan@gmail.com |   40 | Male   | Mumbai    | 110000.00 |     104 | 2015-05-30 |                 5 |
+|      9 | Rohan      | Das       | rohan@yahoo.com |   31 | Male   | Delhi     |  82000.00 |     101 | 2020-10-10 |                 3 |
+|     11 | Aarav      | Sharma    | aarav@gmail.com |   23 | Male   | Delhi     |  40000.00 |    NULL | 2023-08-20 |              NULL |
++--------+------------+-----------+-----------------+------+--------+-----------+-----------+---------+------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELeCT * FROM emploYees WHERE  nOt  gender = 'Female';
+ERROR 1146 (42S02): Table 'pr.emploYees' doesn't exist
+mysql> SELECT first_name FROM employees WHERE first_name LIKE 'R%';
++------------+
+| first_name |
++------------+
+| Rahul      |
+| Rohit      |
+| Rohan      |
+| Riya       |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> select first_name from employees where first_name like "r%";
++------------+
+| first_name |
++------------+
+| Rahul      |
+| Rohit      |
+| Rohan      |
+| Riya       |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name, email  from employees where email  like "%@gmail.com";
++------------+------------------+
+| first_name | email            |
++------------+------------------+
+| Rahul      | rahul@gmail.com  |
+| Rohit      | rohit@gmail.com  |
+| Ananya     | ananya@gmail.com |
+| Karan      | karan@gmail.com  |
+| Pooja      | pooja@gmail.com  |
+| Aarav      | aarav@gmail.com  |
++------------+------------------+
+6 rows in set (0.00 sec)
+
+mysql> select first_name from employees where first_name like "_r%";
++------------+
+| first_name |
++------------+
+| Priya      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+| emp_id | first_name | last_name | email             | age  | gender | city      | salary    | dept_id | hire_date  | performance_score |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+|      1 | Rahul      | Sharma    | rahul@gmail.com   |   28 | Male   | Delhi     |  75000.00 |     101 | 2021-03-15 |                 4 |
+|      2 | Priya      | Verma     | priya@yahoo.com   |   32 | Female | Mumbai    |  90000.00 |     102 | 2019-06-20 |                 5 |
+|      3 | Amit       | Kumar     | NULL              |   24 | Male   | Delhi     |      NULL |     101 | 2023-01-10 |                 3 |
+|      4 | Rohit      | Singh     | rohit@gmail.com   |   29 | Male   | Bangalore |  60000.00 |     103 | 2022-11-05 |                 2 |
+|      5 | Sneha      | Gupta     | sneha@outlook.com |   35 | Female | Delhi     | 120000.00 |     101 | 2018-02-12 |                 5 |
+|      6 | Vikas      | Yadav     | NULL              |   22 | Male   | Pune      |  35000.00 |     103 | 2023-07-01 |              NULL |
+|      7 | Ananya     | Roy       | ananya@gmail.com  |   27 | Female | Bangalore |  58000.00 |     103 | 2021-09-18 |                 4 |
+|      8 | Karan      | Mehta     | karan@gmail.com   |   40 | Male   | Mumbai    | 110000.00 |     104 | 2015-05-30 |                 5 |
+|      9 | Rohan      | Das       | rohan@yahoo.com   |   31 | Male   | Delhi     |  82000.00 |     101 | 2020-10-10 |                 3 |
+|     10 | Pooja      | Joshi     | pooja@gmail.com   |   26 | Female | Pune      |      NULL |     102 | 2022-04-14 |                 1 |
+|     11 | Aarav      | Sharma    | aarav@gmail.com   |   23 | Male   | Delhi     |  40000.00 |    NULL | 2023-08-20 |              NULL |
+|     12 | Riya       | Sen       | riya@outlook.com  |   30 | Female | Kolkata   |  67000.00 |     103 | 2020-01-15 |                 4 |
++--------+------------+-----------+-------------------+------+--------+-----------+-----------+---------+------------+-------------------+
+12 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary =NULL;
+Empty set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary Is NULL;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| Amit       |   NULL |
+| Pooja      |   NULL |
++------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name , salary from employees where salary Is nOt  NULL;
++------------+-----------+
+| first_name | salary    |
++------------+-----------+
+| Rahul      |  75000.00 |
+| Priya      |  90000.00 |
+| Rohit      |  60000.00 |
+| Sneha      | 120000.00 |
+| Vikas      |  35000.00 |
+| Ananya     |  58000.00 |
+| Karan      | 110000.00 |
+| Rohan      |  82000.00 |
+| Aarav      |  40000.00 |
+| Riya       |  67000.00 |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT first_name, city, salary, email 
+    -> FROM employees 
+    -> WHERE city IN ('Delhi', 'Bangalore')
+    ->   AND gender = 'Male'
+    ->   AND salary BETWEEN 50000 AND 100000
+    ->   AND email IS NOT NULL;
++------------+-----------+----------+-----------------+
+| first_name | city      | salary   | email           |
++------------+-----------+----------+-----------------+
+| Rahul      | Delhi     | 75000.00 | rahul@gmail.com |
+| Rohit      | Bangalore | 60000.00 | rohit@gmail.com |
+| Rohan      | Delhi     | 82000.00 | rohan@yahoo.com |
++------------+-----------+----------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
