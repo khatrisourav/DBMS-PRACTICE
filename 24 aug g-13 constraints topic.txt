@@ -1,0 +1,385 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> 
+mysql> uSE neW;
+ERROR 1049 (42000): Unknown database 'neW'
+mysql> uSE new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table yt1 (id int primary key , name varchar (50) not null, email varchar (50) , age tinyint , salary int default 30000, uniquE (email), checK (age >18));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc yt1;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(50) | NO   |     | NULL    |       |
+| email  | varchar(50) | YES  | UNI | NULL    |       |
+| age    | tinyint     | YES  |     | NULL    |       |
+| salary | int         | YES  |     | 30000   |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table yt1;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                      |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| yt1   | CREATE TABLE `yt1` (
+  `id` int NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `age` tinyint DEFAULT NULL,
+  `salary` int DEFAULT '30000',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  CONSTRAINT `yt1_chk_1` CHECK ((`age` > 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into yt1 values (1, "a", "@", 45 , 78900);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from yt1;
++----+------+-------+------+--------+
+| id | name | email | age  | salary |
++----+------+-------+------+--------+
+|  1 | a    | @     |   45 |  78900 |
++----+------+-------+------+--------+
+1 row in set (0.01 sec)
+
+mysql> insert into yt1 values (2, "a", "@", 15 , 78900);
+ERROR 3819 (HY000): Check constraint 'yt1_chk_1' is violated.
+mysql> insert into yt1 values (2, "a", "@1", 19 , 78900);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into yt1 values (3, "a", "@1", 19 , 78900);
+ERROR 1062 (23000): Duplicate entry '@1' for key 'yt1.email'
+mysql> insert into yt1 values (2, "a", "@1234", 19 , 78900);
+ERROR 1062 (23000): Duplicate entry '2' for key 'yt1.PRIMARY'
+mysql> clear;
+mysql> clear
+ERROR 1364 (HY000): Field 'name' doesn't have a default valuei@" , 78, 30050);
+mysql> insert into yt1 (id ,name ,  email, age ) values (5,  "sourav" "i@" , 78);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into yt1 (id ,name ,  email, age ) values (5,  "sourav", "i@" , 78);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from yt1;
++----+--------+-------+------+--------+
+| id | name   | email | age  | salary |
++----+--------+-------+------+--------+
+|  1 | a      | @     |   45 |  78900 |
+|  2 | a      | @1    |   19 |  78900 |
+|  5 | sourav | i@    |   78 |  30000 |
++----+--------+-------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table yt12 (id int , marks int ,  constraint   pk1234   primary key (id , marks ));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create yt12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'yt12' at line 1
+mysql> show create  table  yt12;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                       |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| yt12  | CREATE TABLE `yt12` (
+  `id` int NOT NULL,
+  `marks` int NOT NULL,
+  PRIMARY KEY (`id`,`marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from yt12;
+Empty set (0.00 sec)
+
+mysql> insert into yt12 values (1,101)
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into yt12 values (1,102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into yt12 values (1,103);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into yt12 values (2,103);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into yt12 values (2,103);
+ERROR 1062 (23000): Duplicate entry '2-103' for key 'yt12.PRIMARY'
+mysql> select * from yt12;
++----+-------+
+| id | marks |
++----+-------+
+|  1 |   101 |
+|  1 |   102 |
+|  1 |   103 |
+|  2 |   103 |
++----+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into yt12 values (3 , null);
+ERROR 1048 (23000): Column 'marks' cannot be null
+mysql> create table et12 ( e_id int , stdate  date , enddate date , consTraint yk1 check (stdate < enddate));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table et12;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                       |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| et12  | CREATE TABLE `et12` (
+  `e_id` int DEFAULT NULL,
+  `stdate` date DEFAULT NULL,
+  `enddate` date DEFAULT NULL,
+  CONSTRAINT `yk1` CHECK ((`stdate` < `enddate`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into et12 values (1,"2000-9-12" , "3000-9-12");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into et12 values (1,"3000-9-12" , "2000-9-12");
+ERROR 3819 (HY000): Check constraint 'yk1' is violated.
+Query OK, 0 rows affected (0.02 sec)rimary key , d_name varchar(50));
+
+mysql> show create table dpt1;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| dpt1  | CREATE TABLE `dpt1` (
+  `d_id` int NOT NULL,
+  `d_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into values (1, "it"), (2, "HR");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values (1, "it"), (2, "HR")' at line 1
+mysql> insert into dpt1  values (1, "it"), (2, "HR");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from dpt1;
++------+--------+
+| d_id | d_name |
++------+--------+
+|    1 | it     |
+|    2 | HR     |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create table emp12 (e_id int , e_name , dept_id int , constraint fk123 foreign key (dept_id) references dpt1(d_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', dept_id int , constraint fk123 foreign key (dept_id) references dpt1(d_id))' at line 1
+mysql> create table emp12 (e_id int , e_name , dept_id int , constraint fk123 foreign key(dept_id) references dpt1(d_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', dept_id int , constraint fk123 foreign key(dept_id) references dpt1(d_id))' at line 1
+mysql> create table emp12 (e_id int , e_name varchar(50) , dept_id int , constraint fk123 foreign key(dept_id) references dpt1(d_id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp12 values (1, "A", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp12 values (2, "A", 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp12 values (3, "A", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp12 values (4, "b", 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp12 values (5, "b", 3);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`new`.`emp12`, CONSTRAINT `fk123` FOREIGN KEY (`dept_id`) REFERENCES `dpt1` (`d_id`))
+mysql> insert into emp12 values (5, "b", null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp2;
+ERROR 1146 (42S02): Table 'new.emp2' doesn't exist
+mysql> select * from emp12;
++------+--------+---------+
+| e_id | e_name | dept_id |
++------+--------+---------+
+|    1 | A      |       1 |
+|    2 | A      |       1 |
+|    3 | A      |       1 |
+|    4 | b      |       2 |
+|    5 | b      |    NULL |
++------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> show create table emp12;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                               |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp12 | CREATE TABLE `emp12` (
+  `e_id` int DEFAULT NULL,
+  `e_name` varchar(50) DEFAULT NULL,
+  `dept_id` int DEFAULT NULL,
+  KEY `fk123` (`dept_id`),
+  CONSTRAINT `fk123` FOREIGN KEY (`dept_id`) REFERENCES `dpt1` (`d_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table rt1 (id int , marks int , constraint uk1 unique (id , marks));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show create table rt1;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                   |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| rt1   | CREATE TABLE `rt1` (
+  `id` int DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  UNIQUE KEY `uk1` (`id`,`marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> create table childrt1 (temp1 int , temp2 int , constraint fk2w foreign key (temp1 , temp2 ) references ^C
+mysql> ^C
+mysql> create table childrt1 (temp1 int , temp2 int , constraint fk2w foreign key (temp1 , temp2 ) references rt1(id , marks));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show create table childrt1;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                             |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| childrt1 | CREATE TABLE `childrt1` (
+  `temp1` int DEFAULT NULL,
+  `temp2` int DEFAULT NULL,
+  KEY `fk2w` (`temp1`,`temp2`),
+  CONSTRAINT `fk2w` FOREIGN KEY (`temp1`, `temp2`) REFERENCES `rt1` (`id`, `marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into rt1 values (1,101) , (1,102) , (2,101) (2,102) , (1, 101);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2,102) , (1, 101)' at line 1
+mysql> insert into rt1 values (1,101) , (1,102) , (2,101) (2,102);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2,102)' at line 1
+mysql> insert into rt1 values (1,101) , (1,102) , (2,101), (2,102);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into rt1 values (3,null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from rt1;
++------+-------+
+| id   | marks |
++------+-------+
+|    1 |   101 |
+|    1 |   102 |
+|    2 |   101 |
+|    2 |   102 |
+|    3 |  NULL |
++------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into childrt1 values (1,101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into childrt1 values (1,1011);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`new`.`childrt1`, CONSTRAINT `fk2w` FOREIGN KEY (`temp1`, `temp2`) REFERENCES `rt1` (`id`, `marks`))
+mysql> insert into childrt1 values (1,null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table rt1234 (id int , or
+    -> ^C
+mysql> ^C
+mysql> 
+mysql> 
+mysql> create table rt1234 ( id int primary key );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table childrt1234( temp1 int , constraint df1 foreign key (temp1) references rt1234(id ) on delete cascade on update cascade);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table childrt1234;
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table       | Create Table                                                                                                                                                                                                                                               |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| childrt1234 | CREATE TABLE `childrt1234` (
+  `temp1` int DEFAULT NULL,
+  KEY `df1` (`temp1`),
+  CONSTRAINT `df1` FOREIGN KEY (`temp1`) REFERENCES `rt1234` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into rt1234 values (1) , (2) , (3) , (4) , (5);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from rt1234;
++----+
+| id |
++----+
+|  1 |
+|  2 |
+|  3 |
+|  4 |
+|  5 |
++----+
+5 rows in set (0.00 sec)
+
+mysql> insert into childrt1234 values (1) , (2) ,(null), (4);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from childrt1234;
++-------+
+| temp1 |
++-------+
+|  NULL |
+|     1 |
+|     2 |
+|     4 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from childrt1234;
++-------+
+| temp1 |
++-------+
+|  NULL |
+|     2 |
+|     4 |
+|  1011 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from childrt1234;
++-------+
+| temp1 |
++-------+
+|  NULL |
+|     4 |
+|  1011 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
