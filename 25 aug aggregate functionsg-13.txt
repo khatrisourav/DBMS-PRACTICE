@@ -1,0 +1,449 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table tc1 (id int );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> alter table tc1 add constraint pk_student primary key (id);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+-----------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                      |
++-------+-----------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> alter table tc1 add column email varchar (50) ;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc tc1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| email | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table tc1 add constraint uk_email unique(email);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                             |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table tc1 drop constraint uk_email;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table tc1 drop primary key ;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                    |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  `email` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into tc1 values (1 ,null) , (null,2);
+ERROR 1048 (23000): Column 'id' cannot be null
+mysql> alter table tc1 drop constraint primary key ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> desc tc1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| email | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table tc1 add constraint pki primary key (id);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table tc1 drop constraint primary key ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key' at line 1
+mysql> alter table tc1 drop primary key ;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table tc1;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                    |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+| tc1   | CREATE TABLE `tc1` (
+  `id` int NOT NULL,
+  `email` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select count(*) from Employee;
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as kitni_rows_hai  from Employee;
++----------------+
+| kitni_rows_hai |
++----------------+
+|              9 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select name from Employee;
++----------+
+| name     |
++----------+
+| Amit     |
+| Neha     |
+| Rahul    |
+| Priya    |
+| Rohan    |
+| Simran   |
+| Karan    |
+| Pooja    |
+| himanshu |
++----------+
+9 rows in set (0.00 sec)
+
+mysql> select name as first_name from Employee;
++------------+
+| first_name |
++------------+
+| Amit       |
+| Neha       |
+| Rahul      |
+| Priya      |
+| Rohan      |
+| Simran     |
+| Karan      |
+| Pooja      |
+| himanshu   |
++------------+
+9 rows in set (0.00 sec)
+
+mysql> select name as kitne_nameS_hai_btao  from Employee;
++----------------------+
+| kitne_nameS_hai_btao |
++----------------------+
+| Amit                 |
+| Neha                 |
+| Rahul                |
+| Priya                |
+| Rohan                |
+| Simran               |
+| Karan                |
+| Pooja                |
+| himanshu             |
++----------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select count(salary) from Employee;
++---------------+
+| count(salary) |
++---------------+
+|             8 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) as non_null_values from Employee;
++-----------------+
+| non_null_values |
++-----------------+
+|               8 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select count (dept_id) from Employee;
+ERROR 1630 (42000): FUNCTION new.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select count(dept_id) from Employee;
++----------------+
+| count(dept_id) |
++----------------+
+|              8 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count( DISTinct dept_id) from Employee;
++--------------------------+
+| count( DISTinct dept_id) |
++--------------------------+
+|                        3 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count( DISTinct dept_id) as yt  from Employee;
++----+
+| yt |
++----+
+|  3 |
++----+
+1 row in set (0.00 sec)
+
+mysql> select count( dept_id) as yt  from Employee;
++----+
+| yt |
++----+
+|  8 |
++----+
+1 row in set (0.01 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select sum(salary) as total_salary from Employee;
++--------------+
+| total_salary |
++--------------+
+|    381000.00 |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> select sum(salary)  from Employee;
++-------------+
+| sum(salary) |
++-------------+
+|   381000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) as avg_salary from Employee;
++--------------+
+| avg_salary   |
++--------------+
+| 47625.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select min(salary) from Employee;
++-------------+
+| min(salary) |
++-------------+
+|    28000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from Employee;
++-------------+
+| max(salary) |
++-------------+
+|    72000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select dept_id from Employee group by dept_id;
++---------+
+| dept_id |
++---------+
+|      10 |
+|      20 |
+|      30 |
+|    NULL |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id from Employee group by de^C_id;
+mysql> select dept_id ,avg(salary) as averaage_salary from Employee group by dept_id;
++---------+-----------------+
+| dept_id | averaage_salary |
++---------+-----------------+
+|      10 |    38000.000000 |
+|      20 |    49000.000000 |
+|      30 |    60000.000000 |
+|    NULL |            NULL |
++---------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id , count(*) as count_of_emp from Employee group by dept_id;                    +---------+--------------+
+| dept_id | count_of_emp |
++---------+--------------+
+|      10 |            3 |
+|      20 |            3 |
+|      30 |            2 |
+|    NULL |            1 |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     dept_id,
+    ->     COUNT(*) AS employee_count,
+    ->     SUM(salary) AS total_salary,
+    ->     AVG(salary) AS avg_salary,
+    ->     MIN(salary) AS minimum_salary,
+    ->     MAX(salary) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY dept_id;
++---------+----------------+--------------+--------------+----------------+----------------+
+| dept_id | employee_count | total_salary | avg_salary   | minimum_salary | maximum_salary |
++---------+----------------+--------------+--------------+----------------+----------------+
+|      10 |              3 |    114000.00 | 38000.000000 |       28000.00 |       45000.00 |
+|      20 |              3 |    147000.00 | 49000.000000 |       35000.00 |       60000.00 |
+|      30 |              2 |    120000.00 | 60000.000000 |       48000.00 |       72000.00 |
+|    NULL |              1 |         NULL |         NULL |           NULL |           NULL |
++---------+----------------+--------------+--------------+----------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
