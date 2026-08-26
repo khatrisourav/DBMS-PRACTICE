@@ -1,0 +1,333 @@
+(base) sourav@labpc01:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> use new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+mysql> create table th (id int primary key , name varchar(50) not null , email varchar (10) , age int , salary ^C
+mysql> ^Ceate table th (id int primary key , name varchar(50) not null , email varchar (10) , age int , salary def
+mysql> ^C
+Query OK, 0 rows affected (0.04 sec)ry key , name varchar(50) not null , email varchar (10) , age int , salary int default 30000 , uNique (email) , check(age>18));
+
+mysql> describe th;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(50) | NO   |     | NULL    |       |
+| email  | varchar(10) | YES  | UNI | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | 30000   |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table th;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| th    | CREATE TABLE `th` (
+  `id` int NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(10) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `salary` int DEFAULT '30000',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  CONSTRAINT `th_chk_1` CHECK ((`age` > 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into th values (1, "A", "@1", 19, 52600);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from th;
++----+------+-------+------+--------+
+| id | name | email | age  | salary |
++----+------+-------+------+--------+
+|  1 | A    | @1    |   19 |  52600 |
++----+------+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into th values (2, "A", "@1", 7, 52600);
+ERROR 3819 (HY000): Check constraint 'th_chk_1' is violated.
+mysql> insert into th values (2, "A", "@1", 77, 52600);
+ERROR 1062 (23000): Duplicate entry '@1' for key 'th.email'
+mysql> insert into th values (2, "A", "@1123", 77, 52600);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into th values (2, "A", "@11234", 77, 52600);
+ERROR 1062 (23000): Duplicate entry '2' for key 'th.PRIMARY'
+mysql> insert into th (id , email , age ) values (45,"j@" , 45);
+ERROR 1364 (HY000): Field 'name' doesn't have a default value
+mysql> insert into th (id ,name,  email , age ) values (45, "a",  "j@" , 45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from th;
++----+------+-------+------+--------+
+| id | name | email | age  | salary |
++----+------+-------+------+--------+
+|  1 | A    | @1    |   19 |  52600 |
+|  2 | A    | @1123 |   77 |  52600 |
+| 45 | a    | j@    |   45 |  30000 |
++----+------+-------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table k1 (id int , marks int , primary key ( id , marks ));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table k1;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                     |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| k1    | CREATE TABLE `k1` (
+  `id` int NOT NULL,
+  `marks` int NOT NULL,
+  PRIMARY KEY (`id`,`marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into k values (1,200) , (1,201) , (1,200);
+ERROR 1146 (42S02): Table 'new.k' doesn't exist
+mysql> insert into k1  values (1,200) , (1,201) , (1,200);
+ERROR 1062 (23000): Duplicate entry '1-200' for key 'k1.PRIMARY'
+mysql> insert into k1  values (1,200) , (1,201) ;
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> create evt_tb (event int , stdate date , enddate date ,  constraint  sk1^C check (stdate<endd
+mysql> ^C
+mysql> create evt_tb (event int , stdate date , enddate date ,  constraint  sk1   check (stdate<endd
+    -> ate)
+    -> ^C
+mysql> create evt_tb (event int , stdate date , enddate date ,  constraint  sk1   check (stdate<endd
+    -> ));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'evt_tb (event int , stdate date , enddate date ,  constraint  sk1   check (stdat' at line 1
+mysql> create ^C
+mysql> create  table    evt_tb (event int , stdate date , enddate date ,  constraint  sk1   check (stdate<enddate ));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table evt_tb;
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                          |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| evt_tb | CREATE TABLE `evt_tb` (
+  `event` int DEFAULT NULL,
+  `stdate` date DEFAULT NULL,
+  `enddate` date DEFAULT NULL,
+  CONSTRAINT `sk1` CHECK ((`stdate` < `enddate`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into evt_db values (1 , "2000-09-12","3000-09-12");
+ERROR 1146 (42S02): Table 'new.evt_db' doesn't exist
+mysql> insert into evt_tb values (1 , "2000-09-12","3000-09-12");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into evt_tb values (1 , "3000-09-12","2000-09-12");
+ERROR 3819 (HY000): Check constraint 'sk1' is violated.
+mysql> create table dpt_2 (id int primary key , d_name varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into dpt_2 values (101, "IT"), (102 , "HR") , (103, "MBA"));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into dpt_2 values (101, "IT"), (102 , "HR") , (103, "MBA");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from dpt_2;
++-----+--------+
+| id  | d_name |
++-----+--------+
+| 101 | IT     |
+| 102 | HR     |
+| 103 | MBA    |
++-----+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table emp_2 (emp_id int primary key , emp_name varchar (50) , department_id int,  constraint yt12    foreign key (department_id) referen
+    -> ;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table emp_2;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                        |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp_2 | CREATE TABLE `emp_2` (
+  `emp_id` int NOT NULL,
+  `emp_name` varchar(50) DEFAULT NULL,
+  `department_id` int DEFAULT NULL,
+  PRIMARY KEY (`emp_id`),
+  KEY `yt12` (`department_id`),
+  CONSTRAINT `yt12` FOREIGN KEY (`department_id`) REFERENCES `dpt_2` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp_2 values (5, "A", 101);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp_2 values (6, "b", 102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp_2 values (6, "b", 1022);
+ERROR 1062 (23000): Duplicate entry '6' for key 'emp_2.PRIMARY'
+mysql> insert into emp_2 values (61, "b", 1022);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`new`.`emp_2`, CONSTRAINT `yt12` FOREIGN KEY (`department_id`) REFERENCES `dpt_2` (`id`))
+mysql> insert into emp_2 values (61, "b", null);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp_2;
++--------+----------+---------------+
+| emp_id | emp_name | department_id |
++--------+----------+---------------+
+|      5 | A        |           101 |
+|      6 | b        |           102 |
+|     61 | b        |          NULL |
++--------+----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dpt_2;
++-----+--------+
+| id  | d_name |
++-----+--------+
+| 101 | IT     |
+| 102 | HR     |
+| 103 | MBA    |
++-----+--------+
+3 rows in set (0.00 sec)
+
+mysql> create table dpt_3 (id int , marks int , pass boolean);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into dpt_3 values (1,101, true);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dpt_3 values (1,102, true), (2,102, false) , (2,15,false);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table dpt_3 add constraint uk_1  unique (id , marks ) ;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table dpt_3;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                        |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| dpt_3 | CREATE TABLE `dpt_3` (
+  `id` int DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  `pass` tinyint(1) DEFAULT NULL,
+  UNIQUE KEY `uk_1` (`id`,`marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from dpt_3;
++------+-------+------+
+| id   | marks | pass |
++------+-------+------+
+|    1 |   101 |    1 |
+|    1 |   102 |    1 |
+|    2 |   102 |    0 |
+|    2 |    15 |    0 |
++------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into dpt_3 values (1,101,1);
+ERROR 1062 (23000): Duplicate entry '1-101' for key 'dpt_3.uk_1'
+mysql> create table tempty ( temp1 int , temp2 int , temp3 boolean , foreign key (temp1 , temp2) references (id, marks)) 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id, marks))' at line 1
+mysql>  create table tempty ( temp1 int , temp2 int , temp3 boolean , foreign key(temp1 , temp2) references(id, marks)) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id, marks))' at line 1
+mysql>  create table tempty ( temp1 int , temp2 int , temp3 boolean ,  constraint fkh  foreign key(temp1 , temp2) references(id, marks)) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id, marks))' at line 1
+mysql> show create table dpt_3;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                        |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| dpt_3 | CREATE TABLE `dpt_3` (
+  `id` int DEFAULT NULL,
+  `marks` int DEFAULT NULL,
+  `pass` tinyint(1) DEFAULT NULL,
+  UNIQUE KEY `uk_1` (`id`,`marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql>  create table tempty ( temp1 int , temp2 int , temp3 boolean ,  constraint fkh  foreign key(temp1 , temp2) references(id, marks));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id, marks))' at line 1
+mysql>  create table yu  ( temp1 int , temp2 int , temp3 boolean ,  constraint fkh  foreign key(temp1 , temp2) references(id, marks));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id, marks))' at line 1
+mysql>  create table yu  ( temp1 int , temp2 int , temp3 boolean );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> alter table yu add constraint fk123 foreign key (temp1 , temp2 ) references dpt_3(id,marks);
+ERROR 1826 (HY000): Duplicate foreign key constraint name 'fk123'
+mysql> alter table yu add constraint fk1234  foreign key (temp1 , temp2 ) references dpt_3(id,marks);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  create table yu  ( temp1 int , temp2 int , temp3 boolean ,  constraint fkh  foreign key(temp1 , temp2) references dpt_3(id, marks));
+ERROR 1050 (42S01): Table 'yu' already exists
+mysql> show create table yu;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| yu    | CREATE TABLE `yu` (
+  `temp1` int DEFAULT NULL,
+  `temp2` int DEFAULT NULL,
+  `temp3` tinyint(1) DEFAULT NULL,
+  KEY `fk1234` (`temp1`,`temp2`),
+  CONSTRAINT `fk1234` FOREIGN KEY (`temp1`, `temp2`) REFERENCES `dpt_3` (`id`, `marks`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from dpt_3;
++------+-------+------+
+| id   | marks | pass |
++------+-------+------+
+|    1 |   101 |    1 |
+|    1 |   102 |    1 |
+|    2 |   102 |    0 |
+|    2 |    15 |    0 |
++------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into yu values (1,101,true);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into yu values (1,1011,true);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`new`.`yu`, CONSTRAINT `fk1234` FOREIGN KEY (`temp1`, `temp2`) REFERENCES `dpt_3` (`id`, `marks`))
+mysql> insert into yu values (1,null,true);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from yu;
++-------+-------+-------+
+| temp1 | temp2 | temp3 |
++-------+-------+-------+
+|     1 |   101 |     1 |
+|     1 |  NULL |     1 |
++-------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
