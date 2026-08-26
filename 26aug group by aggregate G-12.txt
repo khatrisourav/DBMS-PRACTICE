@@ -1,0 +1,546 @@
+ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_new |
++---------------+
+| Employee      |
+| Student       |
+| child         |
+| childrt1      |
+| childrt1234   |
+| department    |
+| department1   |
+| dpt1          |
+| dpt_2         |
+| dpt_3         |
+| duprd         |
+| emp           |
+| emp1          |
+| emp12         |
+| emp_2         |
+| employee      |
+| et1           |
+| et12          |
+| event         |
+| evt_tb        |
+| fr            |
+| k1            |
+| parent        |
+| rd            |
+| rt1           |
+| rt1234        |
+| tc1           |
+| th            |
+| ty            |
+| ty1           |
+| x1            |
+| x12           |
+| yt            |
+| yt1           |
+| yt12          |
+| yu            |
++---------------+
+36 rows in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select  count(*)   from Employee;
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select  count(*) as kitni_rows_hai    from Employee;
++----------------+
+| kitni_rows_hai |
++----------------+
+|              9 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.01 sec)
+
+mysql> select name from Employee;
++----------+
+| name     |
++----------+
+| Amit     |
+| Neha     |
+| Rahul    |
+| Priya    |
+| Rohan    |
+| Simran   |
+| Karan    |
+| Pooja    |
+| himanshu |
++----------+
+9 rows in set (0.00 sec)
+
+mysql> select name as f_name  from Employee;
++----------+
+| f_name   |
++----------+
+| Amit     |
+| Neha     |
+| Rahul    |
+| Priya    |
+| Rohan    |
+| Simran   |
+| Karan    |
+| Pooja    |
+| himanshu |
++----------+
+9 rows in set (0.00 sec)
+
+mysql> select name as f_jhvfhj  from Employee;
++----------+
+| f_jhvfhj |
++----------+
+| Amit     |
+| Neha     |
+| Rahul    |
+| Priya    |
+| Rohan    |
+| Simran   |
+| Karan    |
+| Pooja    |
+| himanshu |
++----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select count(salary) from Employee;
++---------------+
+| count(salary) |
++---------------+
+|             8 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary)  as kitni_non_null_hai  from Employee;
++--------------------+
+| kitni_non_null_hai |
++--------------------+
+|                  8 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select count(distinct dept_id) from Employee;
++-------------------------+
+| count(distinct dept_id) |
++-------------------------+
+|                       3 |
++-------------------------+
+1 row in set (0.01 sec)
+
+mysql> select sum (Salary) from Employee;
+ERROR 1630 (42000): FUNCTION new.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select sum(Salary) from Employee;
++-------------+
+| sum(Salary) |
++-------------+
+|   381000.00 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select sum(Salary) as total_salary  from Employee;
++--------------+
+| total_salary |
++--------------+
+|    381000.00 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Salary) as average_salary  from Employee;
++----------------+
+| average_salary |
++----------------+
+|   47625.000000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select min(Salary) as minimum_salary  from Employee;
++----------------+
+| minimum_salary |
++----------------+
+|       28000.00 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select max(Salary) as maximum_salary  from Employee;
++----------------+
+| maximum_salary |
++----------------+
+|       72000.00 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee
+    -> ;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select dept_id from Employee group by dept_id ;
++---------+
+| dept_id |
++---------+
+|      10 |
+|      20 |
+|      30 |
+|    NULL |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id  from Employee group by dept_id;
++---------+
+| dept_id |
++---------+
+|      10 |
+|      20 |
+|      30 |
+|    NULL |
++---------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id , avg(salary) as average_salary   from Employee
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |   38000.000000 |
+|      20 |   49000.000000 |
+|      30 |   60000.000000 |
+|    NULL |           NULL |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id , max(salary) as average_salary   from Employee group by dept_id;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |       45000.00 |
+|      20 |       60000.00 |
+|      30 |       72000.00 |
+|    NULL |           NULL |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id , min(salary) as average_salary   from Employee group by dept_id;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |       28000.00 |
+|      20 |       35000.00 |
+|      30 |       48000.00 |
+|    NULL |           NULL |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id , count(*)  as average_salary   from Employee group by dept_id;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |              3 |
+|      20 |              3 |
+|      30 |              2 |
+|    NULL |              1 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     dept_id,
+    ->     COUNT(*) AS employee_count,
+    ->     SUM(salary) AS total_salary,
+    ->     AVG(salary) AS avg_salary,
+    ->     MIN(salary) AS minimum_salary,
+    ->     MAX(salary) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY dept_id;
++---------+----------------+--------------+--------------+----------------+----------------+
+| dept_id | employee_count | total_salary | avg_salary   | minimum_salary | maximum_salary |
++---------+----------------+--------------+--------------+----------------+----------------+
+|      10 |              3 |    114000.00 | 38000.000000 |       28000.00 |       45000.00 |
+|      20 |              3 |    147000.00 | 49000.000000 |       35000.00 |       60000.00 |
+|      30 |              2 |    120000.00 | 60000.000000 |       48000.00 |       72000.00 |
+|    NULL |              1 |         NULL |         NULL |           NULL |           NULL |
++---------+----------------+--------------+--------------+----------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> use pr;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_pr   |
++----------------+
+| Employee2025   |
+| copydepartment |
+| department     |
+| departments    |
+| dept1          |
+| employee       |
+| employees      |
+| event          |
+| f              |
+| g              |
+| g1             |
+| g12            |
+| g12x           |
+| global_menu    |
+| k              |
+| k1             |
+| q1             |
+| r              |
+| r1             |
+| r12            |
+| r123           |
+| rx             |
+| st5            |
+| st51           |
+| st51234        |
+| st513          |
+| st_enroll      |
+| students       |
+| studtr         |
+| sty            |
+| sty1           |
+| tfe            |
+| trd            |
+| tre            |
++----------------+
+34 rows in set (0.00 sec)
+
+mysql> select * from Employee2025;
++--------+--------+----------+---------+--------+
+| emp_id | name   | salary   | dept_id | city   |
++--------+--------+----------+---------+--------+
+|    101 | Amit   | 45000.00 |      10 | Delhi  |
+|    102 | Neha   | 55000.00 |      10 | Delhi  |
+|    103 | Rahul  | 50000.00 |      10 | Mumbai |
+|    104 | Priya  | 60000.00 |      10 | Mumbai |
+|    105 | Rohit  | 40000.00 |      20 | Delhi  |
+|    106 | Simran | 50000.00 |      20 | Delhi  |
+|    107 | Karan  | 65000.00 |      20 | Mumbai |
+|    108 | Pooja  | 55000.00 |      20 | Mumbai |
+|    109 | Vikas  | 70000.00 |      30 | Delhi  |
+|    110 | Anjali | 80000.00 |      30 | Delhi  |
+|    111 | Mohit  | 60000.00 |      30 | Mumbai |
+|    112 | Sneha  | 70000.00 |      30 | Mumbai |
++--------+--------+----------+---------+--------+
+12 rows in set (0.01 sec)
+
+mysql> select dept_id , city from Employee2025 group by dep
+department             departments            departments.location   dept1.name            
+department.dept_id     departments.dept_id    dept1                  dept_id               
+department.dept_name   departments.dept_name  dept1.id               dept_name             
+mysql> select dept_id , city from Employee2025 group by dept_id , city;
++---------+--------+
+| dept_id | city   |
++---------+--------+
+|      10 | Delhi  |
+|      10 | Mumbai |
+|      20 | Delhi  |
+|      20 | Mumbai |
+|      30 | Delhi  |
+|      30 | Mumbai |
++---------+--------+
+6 rows in set (0.01 sec)
+
+mysql> select dept_id , city , max(salary) as maximum_sal  from Employee2025 group by dept_id , city
+;
++---------+--------+-------------+
+| dept_id | city   | maximum_sal |
++---------+--------+-------------+
+|      10 | Delhi  |    55000.00 |
+|      10 | Mumbai |    60000.00 |
+|      20 | Delhi  |    50000.00 |
+|      20 | Mumbai |    65000.00 |
+|      30 | Delhi  |    80000.00 |
+|      30 | Mumbai |    70000.00 |
++---------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> use new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select dept_id ,avg(salary) as average_salary from Employee group by dept_id;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |   38000.000000 |
+|      20 |   49000.000000 |
+|      30 |   60000.000000 |
+|    NULL |           NULL |
++---------+----------------+
+4 rows in set (0.00 sec)
+mysql> select dept_id ,avg(salary) as average_salary from Employee group by dept_id having avg(salary) <40000 ;
++---------+----------------+alary) as average_salary from Employee group by dept_id having avg(salary) < ;
+| dept_id | average_salary |
++---------+----------------+
+|      10 |   38000.000000 |
++---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select dept_id ,avg(salary) as average_salary from Employee group by dept_id having avg(salary) <40000 ;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |   38000.000000 |
++---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select dept_id ,max(salary) as average_salary from Employee group by dept_id having avg(salary) <40000 ;
++---------+----------------+
+| dept_id | average_salary |
++---------+----------------+
+|      10 |       45000.00 |
++---------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee;
++--------+----------+----------+---------+
+| emp_id | name     | salary   | dept_id |
++--------+----------+----------+---------+
+|    101 | Amit     | 45000.00 |      10 |
+|    102 | Neha     | 52000.00 |      20 |
+|    103 | Rahul    | 28000.00 |      10 |
+|    104 | Priya    | 60000.00 |      20 |
+|    105 | Rohan    | 41000.00 |      10 |
+|    106 | Simran   | 72000.00 |      30 |
+|    107 | Karan    | 35000.00 |      20 |
+|    108 | Pooja    | 48000.00 |      30 |
+|    109 | himanshu |     NULL |    NULL |
++--------+----------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> select dept_id from Employee where salary > 60000 group by dept_id ;
++---------+
+| dept_id |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
++---------+--------------+g(salary) as avG_salary from Employee group by dept_id order by dept_id desc;
+| dept_id | avG_salary   |
++---------+--------------+
+|      30 | 60000.000000 |
+|      20 | 49000.000000 |
+|      10 | 38000.000000 |
+|    NULL |         NULL |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
