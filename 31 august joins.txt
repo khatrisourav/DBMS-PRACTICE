@@ -1,0 +1,326 @@
+Server version: 8.0.46-0ubuntu0.24.04.3 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> 
+mysql> use new;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Colors;
++----------+------------+
+| Color_ID | Color_Name |
++----------+------------+
+|        1 | Red        |
+|        2 | Blue       |
+|        5 | orange     |
++----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Sizes;
++---------+-----------+
+| Size_ID | Size_Name |
++---------+-----------+
+|       1 | Small     |
+|       2 | Medium    |
+|       3 | Large     |
+|      78 | verysmall |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Colors as c cross join Sizes as s;
++----------+------------+---------+-----------+
+| Color_ID | Color_Name | Size_ID | Size_Name |
++----------+------------+---------+-----------+
+|        5 | orange     |       1 | Small     |
+|        2 | Blue       |       1 | Small     |
+|        1 | Red        |       1 | Small     |
+|        5 | orange     |       2 | Medium    |
+|        2 | Blue       |       2 | Medium    |
+|        1 | Red        |       2 | Medium    |
+|        5 | orange     |       3 | Large     |
+|        2 | Blue       |       3 | Large     |
+|        1 | Red        |       3 | Large     |
+|        5 | orange     |      78 | verysmall |
+|        2 | Blue       |      78 | verysmall |
+|        1 | Red        |      78 | verysmall |
++----------+------------+---------+-----------+
+12 rows in set (0.00 sec)
+
+mysql> select Color_ID , Size_ID  from Colors as c cross join Sizes as s;
++----------+---------+
+| Color_ID | Size_ID |
++----------+---------+
+|        5 |       1 |
+|        2 |       1 |
+|        1 |       1 |
+|        5 |       2 |
+|        2 |       2 |
+|        1 |       2 |
+|        5 |       3 |
+|        2 |       3 |
+|        1 |       3 |
+|        5 |      78 |
+|        2 |      78 |
+|        1 |      78 |
++----------+---------+
+12 rows in set (0.00 sec)
+
+mysql> select Color_ID , Size_ID  from Colors cross join Sizes ;
++----------+---------+
+| Color_ID | Size_ID |
++----------+---------+
+|        5 |       1 |
+|        2 |       1 |
+|        1 |       1 |
+|        5 |       2 |
+|        2 |       2 |
+|        1 |       2 |
+|        5 |       3 |
+|        2 |       3 |
+|        1 |       3 |
+|        5 |      78 |
+|        2 |      78 |
+|        1 |      78 |
++----------+---------+
+12 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_new |
++---------------+
+| Colors        |
+| Departments   |
+| Doctor        |
+| Employee      |
+| Employees     |
+| Hospital      |
+| Orders        |
+| Sizes         |
+| Student       |
+| child         |
+| childrt1      |
+| childrt1234   |
+| department    |
+| department1   |
+| dpt1          |
+| dpt_2         |
+| dpt_3         |
+| duprd         |
+| emp           |
+| emp1          |
+| emp12         |
+| emp_2         |
+| employee      |
+| et1           |
+| et12          |
+| event         |
+| evt_tb        |
+| fr            |
+| k1            |
+| parent        |
+| rd            |
+| rt1           |
+| rt1234        |
+| tc1           |
+| th            |
+| ty            |
+| ty1           |
+| x1            |
+| x12           |
+| yt            |
+| yt1           |
+| yt12          |
+| yu            |
+| yu1           |
+| yu2           |
++---------------+
+45 rows in set (0.00 sec)
+
+mysql> select * from Doctor;
++-----------+-------------+-----------+-------------+
+| doctor_id | doctor_name | salary    | hospital_id |
++-----------+-------------+-----------+-------------+
+|         1 | Dr. Aman    |  85000.00 |         101 |
+|         2 | Dr. Riya    |  95000.00 |         102 |
+|         3 | Dr. Karan   |  75000.00 |         101 |
+|         4 | Dr. Neha    | 110000.00 |         104 |
+|         5 | Dr. Rahul   |  80000.00 |        NULL |
++-----------+-------------+-----------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from Departments;
++---------+-----------+
+| Dept_ID | Dept_Name |
++---------+-----------+
+|     101 | IT        |
+|     102 | HR        |
+|     103 | Finance   |
+|     104 | Marketing |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Colors;
++----------+------------+
+| Color_ID | Color_Name |
++----------+------------+
+|        1 | Red        |
+|        2 | Blue       |
+|        5 | orange     |
++----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Sizes;
++---------+-----------+
+| Size_ID | Size_Name |
++---------+-----------+
+|       1 | Small     |
+|       2 | Medium    |
+|       3 | Large     |
+|      78 | verysmall |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Colors as c  inner join Sizes as s  on c.Color_ID = s.Size_ID;
++----------+------------+---------+-----------+
+| Color_ID | Color_Name | Size_ID | Size_Name |
++----------+------------+---------+-----------+
+|        1 | Red        |       1 | Small     |
+|        2 | Blue       |       2 | Medium    |
++----------+------------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Colors as c  left join  Sizes as s  on c.Color_ID = s.Size_ID;
++----------+------------+---------+-----------+
+| Color_ID | Color_Name | Size_ID | Size_Name |
++----------+------------+---------+-----------+
+|        1 | Red        |       1 | Small     |
+|        2 | Blue       |       2 | Medium    |
+|        5 | orange     |    NULL | NULL      |
++----------+------------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> create table emp343 ( e_id int , ename varchar
+    -> ^C
+mysql> ^C
+mysql> 
+mysql> 
+mysql> create table empnew (e_id int , ename varchar ( 50) , dpt_id int );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table departmenty( d_id int , d_name varchar (50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into departmenty values ( 200, "HR") , (201, "MBA") , (203 , "Btech");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from departmenty;
++------+--------+
+| d_id | d_name |
++------+--------+
+|  200 | HR     |
+|  201 | MBA    |
+|  203 | Btech  |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into empnew values ( 100, "Rahul" , 200), ( 101 , "Aman" , 201) , ( 103 , "Diksha" , 200) , ( 104 , "Agamveer" , NULL) ;
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from empnew;
++------+----------+--------+
+| e_id | ename    | dpt_id |
++------+----------+--------+
+|  100 | Rahul    |    200 |
+|  101 | Aman     |    201 |
+|  103 | Diksha   |    200 |
+|  104 | Agamveer |   NULL |
++------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from departmenty as dpt inner join empnew as emp on dpt.d_id = emp.dpt_id;
++------+--------+------+--------+--------+
+| d_id | d_name | e_id | ename  | dpt_id |
++------+--------+------+--------+--------+
+|  200 | HR     |  100 | Rahul  |    200 |
+|  201 | MBA    |  101 | Aman   |    201 |
+|  200 | HR     |  103 | Diksha |    200 |
++------+--------+------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select  d_name , ename  from departmenty as dpt inner join empnew as emp on dpt.d_id = emp.dpt_id;
++--------+--------+
+| d_name | ename  |
++--------+--------+
+| HR     | Rahul  |
+| MBA    | Aman   |
+| HR     | Diksha |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select  d_name , ename  from departmenty as dpt left  join empnew as emp on dpt.d_id = emp.dpt_id;
++--------+--------+
+| d_name | ename  |
++--------+--------+
+| HR     | Diksha |
+| HR     | Rahul  |
+| MBA    | Aman   |
+| Btech  | NULL   |
++--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select  *  from departmenty as dpt left  join empnew as emp on dpt.d_id = emp.dpt_id;
++------+--------+------+--------+--------+
+| d_id | d_name | e_id | ename  | dpt_id |
++------+--------+------+--------+--------+
+|  200 | HR     |  103 | Diksha |    200 |
+|  200 | HR     |  100 | Rahul  |    200 |
+|  201 | MBA    |  101 | Aman   |    201 |
+|  203 | Btech  | NULL | NULL   |   NULL |
++------+--------+------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select  *  from departmenty as dpt left  join empnew as emp on dpt.d_id = emp.dpt_id;
++------+--------+------+--------+--------+
+| d_id | d_name | e_id | ename  | dpt_id |
++------+--------+------+--------+--------+
+|  200 | HR     |  103 | Diksha |    200 |
+|  200 | HR     |  100 | Rahul  |    200 |
+|  201 | MBA    |  101 | Aman   |    201 |
+|  203 | Btech  | NULL | NULL   |   NULL |
++------+--------+------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select  *  from departmenty as dpt inner  join empnew as emp on dpt.d_id = emp.dpt_id;
++------+--------+------+--------+--------+
+| d_id | d_name | e_id | ename  | dpt_id |
++------+--------+------+--------+--------+
+|  200 | HR     |  100 | Rahul  |    200 |
+|  201 | MBA    |  101 | Aman   |    201 |
+|  200 | HR     |  103 | Diksha |    200 |
++------+--------+------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select  *  from departmenty as dpt right  join empnew as emp on dpt.d_id = emp.dpt_id;;
++------+--------+------+----------+--------+
+| d_id | d_name | e_id | ename    | dpt_id |
++------+--------+------+----------+--------+
+|  200 | HR     |  100 | Rahul    |    200 |
+|  201 | MBA    |  101 | Aman     |    201 |
+|  200 | HR     |  103 | Diksha   |    200 |
+| NULL | NULL   |  104 | Agamveer |   NULL |
++------+--------+------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
