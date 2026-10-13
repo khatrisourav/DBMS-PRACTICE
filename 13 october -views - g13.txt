@@ -1,0 +1,351 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.46-0ubuntu0.24.04.4 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> use pr;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Employee2025;
++--------+--------+----------+---------+--------+
+| emp_id | name   | salary   | dept_id | city   |
++--------+--------+----------+---------+--------+
+|    101 | Amit   | 65000.00 |      10 | Delhi  |
+|    102 | Neha   | 55000.00 |      10 | Delhi  |
+|    103 | Rahul  | 40000.00 |      10 | Mumbai |
+|    104 | Priya  | 60000.00 |      10 | Mumbai |
+|    105 | Rohit  | 40000.00 |      20 | Delhi  |
+|    106 | Simran | 50000.00 |      20 | Delhi  |
+|    108 | Pooja  | 55000.00 |      20 | Mumbai |
+|    109 | Vikas  | 70000.00 |      30 | Delhi  |
+|    110 | Anjali | 80000.00 |      30 | Delhi  |
+|    111 | Mohit  | 60000.00 |      30 | Mumbai |
+|    112 | Sneha  | 70000.00 |      30 | Mumbai |
++--------+--------+----------+---------+--------+
+11 rows in set (0.00 sec)
+
+mysql> select * from Employee2025 where dept_id = 10;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    101 | Amit  | 65000.00 |      10 | Delhi  |
+|    102 | Neha  | 55000.00 |      10 | Delhi  |
+|    103 | Rahul | 40000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
++--------+-------+----------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Employee2025 where city ="Delhi";
++--------+--------+----------+---------+-------+
+| emp_id | name   | salary   | dept_id | city  |
++--------+--------+----------+---------+-------+
+|    101 | Amit   | 65000.00 |      10 | Delhi |
+|    102 | Neha   | 55000.00 |      10 | Delhi |
+|    105 | Rohit  | 40000.00 |      20 | Delhi |
+|    106 | Simran | 50000.00 |      20 | Delhi |
+|    109 | Vikas  | 70000.00 |      30 | Delhi |
+|    110 | Anjali | 80000.00 |      30 | Delhi |
++--------+--------+----------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Employee2025 where city ="Delhi" and salary = 55000 and dept_id=10;
++--------+------+----------+---------+-------+
+| emp_id | name | salary   | dept_id | city  |
++--------+------+----------+---------+-------+
+|    102 | Neha | 55000.00 |      10 | Delhi |
++--------+------+----------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from Employee2025 where dept_id = 10;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    101 | Amit  | 65000.00 |      10 | Delhi  |
+|    102 | Neha  | 55000.00 |      10 | Delhi  |
+|    103 | Rahul | 40000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
++--------+-------+----------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Employee2025 where city ="Delhi" and salary = 55000 and dept_id=10;^C
+mysql> show full tables where table_type="VIEW";
++--------------+------------+
+| Tables_in_pr | Table_type |
++--------------+------------+
+| v2           | VIEW       |
+| v3           | VIEW       |
++--------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Employee2025 where dept_id = 10;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    101 | Amit  | 65000.00 |      10 | Delhi  |
+|    102 | Neha  | 55000.00 |      10 | Delhi  |
+|    103 | Rahul | 40000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
++--------+-------+----------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create view dept10 as select * from Employee2025 where dept_id = 10;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show full tables where table_type = "VIEW";
++--------------+------------+
+| Tables_in_pr | Table_type |
++--------------+------------+
+| dept10       | VIEW       |
+| v2           | VIEW       |
+| v3           | VIEW       |
++--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept10;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    101 | Amit  | 65000.00 |      10 | Delhi  |
+|    102 | Neha  | 55000.00 |      10 | Delhi  |
+|    103 | Rahul | 40000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
++--------+-------+----------+---------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select name  from dept10;
++-------+
+| name  |
++-------+
+| Amit  |
+| Neha  |
+| Rahul |
+| Priya |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> drop view dept10;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show full tables where table_type = "VIEW";
++--------------+------------+
+| Tables_in_pr | Table_type |
++--------------+------------+
+| v2           | VIEW       |
+| v3           | VIEW       |
++--------------+------------+
+2 rows in set (0.01 sec)
+
+mysql> select name  from dept10;
+ERROR 1146 (42S02): Table 'pr.dept10' doesn't exist
+mysql> use new12;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Customers;
++-------------+---------------+------------+
+| customer_id | customer_name | city       |
++-------------+---------------+------------+
+|           1 | Rahul         | Delhi      |
+|           2 | Aman          | Chandigarh |
+|           3 | Neha          | Mumbai     |
+|           4 | Ravi          | Pune       |
++-------------+---------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from Orders;
++----------+-------------+------------+---------+
+| order_id | customer_id | order_date | amount  |
++----------+-------------+------------+---------+
+|      101 |           1 | 2026-09-01 | 2500.00 |
+|      102 |           1 | 2026-09-02 | 1200.00 |
+|      103 |           2 | 2026-09-02 | 5000.00 |
+|      104 |           3 | 2026-09-03 | 1800.00 |
+|      105 |        NULL | 2026-09-03 | 1500.00 |
++----------+-------------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Customers as c inner join Orders as o on c.customer_id = o.customer_id;
++-------------+---------------+------------+----------+-------------+------------+---------+
+| customer_id | customer_name | city       | order_id | customer_id | order_date | amount  |
++-------------+---------------+------------+----------+-------------+------------+---------+
+|           1 | Rahul         | Delhi      |      101 |           1 | 2026-09-01 | 2500.00 |
+|           1 | Rahul         | Delhi      |      102 |           1 | 2026-09-02 | 1200.00 |
+|           2 | Aman          | Chandigarh |      103 |           2 | 2026-09-02 | 5000.00 |
+|           3 | Neha          | Mumbai     |      104 |           3 | 2026-09-03 | 1800.00 |
++-------------+---------------+------------+----------+-------------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select customer_name , city  from Customers as c inner join Orders as o on c.customer_id = o.customer_id;
++---------------+------------+
+| customer_name | city       |
++---------------+------------+
+| Rahul         | Delhi      |
+| Rahul         | Delhi      |
+| Aman          | Chandigarh |
+| Neha          | Mumbai     |
++---------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> create view v4 as select customer_name , city  from Customers as c inner join Orders as o on c.customer_id = o.cu
+stomer_id;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show full table where table_type="VIEW";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table where table_type="VIEW"' at line 1
+mysql> show full tables where table_type="VIEW";
++-----------------+------------+
+| Tables_in_new12 | Table_type |
++-----------------+------------+
+| cus             | VIEW       |
+| cuswhpo         | VIEW       |
+| v1              | VIEW       |
+| v4              | VIEW       |
++-----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from v4;
++---------------+------------+
+| customer_name | city       |
++---------------+------------+
+| Rahul         | Delhi      |
+| Rahul         | Delhi      |
+| Aman          | Chandigarh |
+| Neha          | Mumbai     |
++---------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from v4;
++---------------+------------+
+| customer_name | city       |
++---------------+------------+
+| Rahul         | Delhi      |
+| Rahul         | Delhi      |
+| Aman          | Chandigarh |
+| Neha          | Mumbai     |
++---------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select customer_name , city  from Customers as c left  join Orders as o on c.customer_id = o.customer_id;
++---------------+------------+
+| customer_name | city       |
++---------------+------------+
+| Rahul         | Delhi      |
+| Rahul         | Delhi      |
+| Aman          | Chandigarh |
+| Neha          | Mumbai     |
+| Ravi          | Pune       |
++---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select *  from Customers as c left  join Orders as o on c.customer_id = o.customer_id;
++-------------+---------------+------------+----------+-------------+------------+---------+
+| customer_id | customer_name | city       | order_id | customer_id | order_date | amount  |
++-------------+---------------+------------+----------+-------------+------------+---------+
+|           1 | Rahul         | Delhi      |      102 |           1 | 2026-09-02 | 1200.00 |
+|           1 | Rahul         | Delhi      |      101 |           1 | 2026-09-01 | 2500.00 |
+|           2 | Aman          | Chandigarh |      103 |           2 | 2026-09-02 | 5000.00 |
+|           3 | Neha          | Mumbai     |      104 |           3 | 2026-09-03 | 1800.00 |
+|           4 | Ravi          | Pune       |     NULL |        NULL | NULL       |    NULL |
++-------------+---------------+------------+----------+-------------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> use pr;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from Employee2025 ;
++--------+--------+----------+---------+--------+
+| emp_id | name   | salary   | dept_id | city   |
++--------+--------+----------+---------+--------+
+|    101 | Amit   | 65000.00 |      10 | Delhi  |
+|    102 | Neha   | 55000.00 |      10 | Delhi  |
+|    103 | Rahul  | 40000.00 |      10 | Mumbai |
+|    104 | Priya  | 60000.00 |      10 | Mumbai |
+|    105 | Rohit  | 40000.00 |      20 | Delhi  |
+|    106 | Simran | 50000.00 |      20 | Delhi  |
+|    108 | Pooja  | 55000.00 |      20 | Mumbai |
+|    109 | Vikas  | 70000.00 |      30 | Delhi  |
+|    110 | Anjali | 80000.00 |      30 | Delhi  |
+|    111 | Mohit  | 60000.00 |      30 | Mumbai |
+|    112 | Sneha  | 70000.00 |      30 | Mumbai |
++--------+--------+----------+---------+--------+
+11 rows in set (0.00 sec)
+
+mysql> create view v5 as select * from Employee2025 where city = "Delhi";
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from v5;
++--------+--------+----------+---------+-------+
+| emp_id | name   | salary   | dept_id | city  |
++--------+--------+----------+---------+-------+
+|    101 | Amit   | 65000.00 |      10 | Delhi |
+|    102 | Neha   | 55000.00 |      10 | Delhi |
+|    105 | Rohit  | 40000.00 |      20 | Delhi |
+|    106 | Simran | 50000.00 |      20 | Delhi |
+|    109 | Vikas  | 70000.00 |      30 | Delhi |
+|    110 | Anjali | 80000.00 |      30 | Delhi |
++--------+--------+----------+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter view v5 as select * from Employee2025 where city = "Mumbai";
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from v5;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    103 | Rahul | 40000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
+|    108 | Pooja | 55000.00 |      20 | Mumbai |
+|    111 | Mohit | 60000.00 |      30 | Mumbai |
+|    112 | Sneha | 70000.00 |      30 | Mumbai |
++--------+-------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Employee2025;
++--------+--------+----------+---------+--------+
+| emp_id | name   | salary   | dept_id | city   |
++--------+--------+----------+---------+--------+
+|    101 | Amit   | 65000.00 |      10 | Delhi  |
+|    102 | Neha   | 55000.00 |      10 | Delhi  |
+|    103 | Rahul  | 40000.00 |      10 | Mumbai |
+|    104 | Priya  | 60000.00 |      10 | Mumbai |
+|    105 | Rohit  | 40000.00 |      20 | Delhi  |
+|    106 | Simran | 50000.00 |      20 | Delhi  |
+|    108 | Pooja  | 55000.00 |      20 | Mumbai |
+|    109 | Vikas  | 70000.00 |      30 | Delhi  |
+|    110 | Anjali | 80000.00 |      30 | Delhi  |
+|    111 | Mohit  | 60000.00 |      30 | Mumbai |
+|    112 | Sneha  | 70000.00 |      30 | Mumbai |
++--------+--------+----------+---------+--------+
+11 rows in set (0.00 sec)
+
+mysql> update Employee2025 set salary = 60000 where emp_id = 103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from v5;
++--------+-------+----------+---------+--------+
+| emp_id | name  | salary   | dept_id | city   |
++--------+-------+----------+---------+--------+
+|    103 | Rahul | 60000.00 |      10 | Mumbai |
+|    104 | Priya | 60000.00 |      10 | Mumbai |
+|    108 | Pooja | 55000.00 |      20 | Mumbai |
+|    111 | Mohit | 60000.00 |      30 | Mumbai |
+|    112 | Sneha | 70000.00 |      30 | Mumbai |
++--------+-------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+
